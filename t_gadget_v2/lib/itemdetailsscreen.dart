@@ -8,9 +8,10 @@ import 'package:t_gadget_v2/user.dart';
 
 class ItemdetailsscreenState extends StatefulWidget {
   final Item item;
-   final User user;
-  
-  const ItemdetailsscreenState({Key key, this.item,this.user}) : super(key: key); 
+  final User user;
+
+  const ItemdetailsscreenState({Key key, this.item, this.user})
+      : super(key: key);
   @override
   __ItemdetailsscreenStateState createState() =>
       __ItemdetailsscreenStateState();
@@ -28,7 +29,8 @@ class __ItemdetailsscreenStateState extends State<ItemdetailsscreenState> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text(widget.item.itemname), backgroundColor: Colors.black87,
+          title: Text(widget.item.itemname),
+          backgroundColor: Colors.black87,
           centerTitle: true,
           leading: BackButton(
             color: Colors.white,
@@ -42,18 +44,23 @@ class __ItemdetailsscreenStateState extends State<ItemdetailsscreenState> {
           ),
         ),
         floatingActionButton: SpeedDial(
-          animatedIcon: AnimatedIcons.menu_arrow, backgroundColor: Colors.black87,
+          animatedIcon: AnimatedIcons.menu_arrow,
+          backgroundColor: Colors.black87,
           children: [
             SpeedDialChild(
                 child: Icon(Icons.shopping_cart_sharp),
-                label: "Add To Cart", backgroundColor: Colors.black87,
+                label: "Add To Cart",
+                backgroundColor: Colors.black87,
                 labelBackgroundColor: Colors.white,
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              Addtoshoppingcartscreen(item: widget.item,user: widget.user,)));
+                              Addtoshoppingcartscreen(
+                                item: widget.item,
+                                user: widget.user,
+                              )));
                 }),
           ],
         ),
@@ -216,7 +223,7 @@ class __ItemdetailsscreenStateState extends State<ItemdetailsscreenState> {
                                   fontSize: 16,
                                 )))),
                   ]),
-                   TableRow(children: [
+                  TableRow(children: [
                     TableCell(
                         child: Container(
                             padding: EdgeInsets.all(10),
