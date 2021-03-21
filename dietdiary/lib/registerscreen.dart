@@ -232,12 +232,14 @@ class _RegisterscreenState extends State<Registerscreen> {
         pr.style(message: "Registration...");
         await pr.show();
 
-        http.post("http://triold.com/dietdiary/php/PHPMailer/register_usernew.php", body: {
-          "name": _name,
-          "email": _email,
-          "phone": _phone,
-          "password": _pass,
-        }).then((res) {
+        http.post(
+            "http://triold.com/dietdiary/php/PHPMailer/register_usernew.php",
+            body: {
+              "name": _name,
+              "email": _email,
+              "phone": _phone,
+              "password": _pass,
+            }).then((res) {
           if (res.body == "success") {
             Toast.show("Registration success", context,
                 duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
