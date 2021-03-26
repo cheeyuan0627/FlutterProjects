@@ -31,35 +31,35 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
             },
           ),
         ),
-        body: SingleChildScrollView(padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
           child: Column(
             children: [
-                   Card(
+              Card(
                 child: InkWell(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              DietplanbreakfastScreen())),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            
                             SizedBox(width: 20),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [                              
+                              children: [
                                 SizedBox(height: 10),
-                                Row(children: [ Text(
-                                  'Total Calories Per Day: 853 cal',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),   SizedBox(width: 5),Icon(Icons.today)],),
-                                
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Total Calories Per Day: 853 cal',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Icon(Icons.today)
+                                  ],
+                                ),
                                 SizedBox(height: 10),
                                 Text(
                                   'Total Food: 7',

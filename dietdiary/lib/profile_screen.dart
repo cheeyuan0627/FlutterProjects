@@ -9,6 +9,7 @@ import 'bmiscreen.dart';
 import 'dietchecklistscreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
+import 'package:intl/intl.dart';
 
 class ProfileScreen extends StatefulWidget {
   final User user;
@@ -29,6 +30,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final now = new DateTime.now();
+    String formatter = DateFormat('yMEd').format(now);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -79,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 MaterialPageRoute(
                                     builder: (buildContextcontext) =>
                                         DietchecklistScreen(
-                                          user: widget.user,
+                                          user: widget.user
                                         )));
                           },
                         ),
@@ -131,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Container(
                       child: Center(
                           child: Text(
-                  'Loading...',
+                  'Halo  '+'  PLEASE PRESS THIS BUTTON TO CONTINUE CALCULATE BMI ', textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -221,7 +224,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           ),
                                         ),
                                         SizedBox(
-                                          width: 40,
+                                          width: 30,
                                         ),
                                         Column(
                                           mainAxisAlignment:
@@ -256,12 +259,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            IconButton(
-                                              icon: Icon(Icons.logout),
-                                              padding: EdgeInsets.fromLTRB(
-                                                  120, 0, 0, 0),
-                                              onPressed: () => _logout(),
-                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  formatter,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w800,
+                                                    fontSize: 17,
+                                                  ),
+                                                ),
+                                                IconButton(
+                                                  icon: Icon(Icons.logout),
+                                                  padding: EdgeInsets.fromLTRB(
+                                                      0, 0, 0, 0),
+                                                  onPressed: () => _logout(),
+                                                ),
+                                              ],
+                                            )
                                           ],
                                         )
                                       ],

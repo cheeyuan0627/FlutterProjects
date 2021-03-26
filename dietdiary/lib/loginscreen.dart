@@ -164,7 +164,9 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (BuildContext context) => ProfileScreen (user: user,)));
+                builder: (BuildContext context) => ProfileScreen(
+                      user: user,
+                    )));
       } else {
         Toast.show("Login failed", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);

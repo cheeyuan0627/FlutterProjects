@@ -120,15 +120,15 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Please calculate your BMI ",),backgroundColor: Colors.black87,
+        title: Text("Please Calculate Your BMI ",),backgroundColor: Colors.black87,
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.home),
           onPressed: () {
-            Navigator.pop(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => ProfileScreen()));
+                    builder: (BuildContext context) => ProfileScreen(user: widget.user,)));
           },
         ),
       ),
