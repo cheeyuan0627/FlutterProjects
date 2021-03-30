@@ -154,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
       List userdata = res.body.split(",");
       if (userdata[0] == "success") {
         Toast.show("Login success", context,
-            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+            duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
         User user = new User(
             name: userdata[1],
             email: userdata[2],
@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     )));
       } else {
         Toast.show("Login failed", context,
-            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+            duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
       }
     }).catchError((err) {
       print(err);
@@ -216,21 +216,21 @@ class _LoginScreenState extends State<LoginScreen> {
         print('Email/Password Empty');
         _rememberMe = false;
         Toast.show("Email/password is empty", context,
-            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+            duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
         return;
       } else {
         await prefs.setString('email', _email);
         await prefs.setString('password', _pass);
         await prefs.setBool('rememberme', value);
         Toast.show("Login Detail Saved", context,
-            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+            duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
       }
     } else {
       await prefs.setString('email', '');
       await prefs.setString('password', '');
       await prefs.setBool('rememberme', false);
       Toast.show("Login Detail Removed", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+          duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
       setState(() {
         _emcontroller.text = '';
         _pscontroller.text = '';

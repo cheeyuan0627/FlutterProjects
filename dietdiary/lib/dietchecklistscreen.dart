@@ -17,7 +17,10 @@ class DietchecklistScreen extends StatefulWidget {
 class _DietchecklistScreenState extends State<DietchecklistScreen> {
   double screenHeight, screenWidth;
   List bmiinfolist;
-  List foodslist;
+  List breakfastlist;
+  List lunchlist;
+  List dinnerlist;
+  String foodname, foodcycle;
 
   @override
   void initState() {
@@ -62,517 +65,532 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                       children: List.generate(bmiinfolist.length, (index) {
                         return Padding(
                           padding: EdgeInsets.all(10),
-                          child: Stack(
+                          child: Column(
                             children: [
-                              Column(
+                              Row(
                                 children: [
+                                  Icon(
+                                    Icons.update,
+                                    size: 18,
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'BMI: ' +
+                                        double.parse(bmiinfolist[index]['bmi'])
+                                            .toStringAsFixed(0),
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
                                   Row(
                                     children: [
-                                      Icon(
-                                        Icons.update,
-                                        size: 18,
-                                      ),
+                                      Icon(Icons.face, size: 18),
                                       SizedBox(width: 5),
                                       Text(
-                                        'BMI: ' +
-                                            double.parse(
-                                                    bmiinfolist[index]['bmi'])
-                                                .toStringAsFixed(0),
+                                        'Status: ' + bmiinfolist[index]['type'],
                                         style: TextStyle(
                                           fontSize: 18,
                                           color: Colors.black,
                                         ),
                                       ),
-                                      SizedBox(width: 10),
-                                      Row(
-                                        children: [
-                                          Icon(Icons.face, size: 18),
-                                          SizedBox(width: 5),
-                                          Text(
-                                            'Status: ' +
-                                                bmiinfolist[index]['type'],
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
                                     ],
                                   ),
-                                  Container(
-                                    width: 30,
-                                    height: 15,
-                                    child: Center(),
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Text(
-                                        "BREASKFAST",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Icon(
-                                        Icons.breakfast_dining,
-                                        size: 18,
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  foodslist == null
-                                      ? Flexible(
-                                          child: Container(
-                                              child: Center(
-                                                  child: Text(
-                                          'LOADING BREAKFAST',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        ))))
-                                      : Flexible(
-                                          child: SingleChildScrollView(
-                                              child: Column(
-                                            children: List.generate(
-                                                foodslist.length, (index) {
-                                              return Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    10, 0, 10, 0),
-                                                child: Column(
-                                                  children: [
-                                                    SizedBox(height: 5),
-                                                    SingleChildScrollView(
-                                                        child: Card(
-                                                      elevation: 5,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10)),
-                                                      margin: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 5,
-                                                          vertical: 5),
-                                                      child: InkWell(
-                                                        onLongPress: () =>
-                                                            _adddialog(),
-                                                        child:
-                                                            SingleChildScrollView(
-                                                          child: Column(
-                                                            children: [
-                                                              ListTile(
-                                                                title: Text(
-                                                                  foodslist[
-                                                                          index]
-                                                                      ['name'],
-                                                                ),
-                                                                subtitle: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .min,
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Text(
-                                                                      'Quantity: ' +
-                                                                          foodslist[index]
-                                                                              [
-                                                                              'quantity'],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                leading:
-                                                                    ClipRRect(
-                                                                        child:
-                                                                            CachedNetworkImage(
-                                                                  imageUrl:
-                                                                      "http://triold.com/dietdiary/images/foodpictures/${foodslist[index]['name']}.png",
-                                                                  width: 60,
-                                                                  height: 50,
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                  placeholder: (context,
-                                                                          url) =>
-                                                                      new CircularProgressIndicator(),
-                                                                  errorWidget: (context,
-                                                                          url,
-                                                                          error) =>
-                                                                      new Icon(
-                                                                    Icons
-                                                                        .broken_image,
-                                                                    size:
-                                                                        screenWidth /
-                                                                            2,
-                                                                  ),
-                                                                )),
-                                                                trailing:
-                                                                    SizedBox(
-                                                                  width: 75,
-                                                                  child: Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .end,
-                                                                    children: <
-                                                                        Widget>[
-                                                                      Expanded(
-                                                                        child:
-                                                                            Row(
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Container(
-                                                                              width: 15,
-                                                                              height: 15,
-                                                                              decoration: BoxDecoration(
-                                                                                shape: BoxShape.circle,
-                                                                                color: Colors.red,
-                                                                              ),
-                                                                            ),
-                                                                            Spacer(),
-                                                                            Text(
-                                                                              "PREFER",
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )),
-                                                  ],
-                                                ),
-                                              );
-                                            }),
-                                          )),
-                                        ),
-                                  Container(
-                                    width: 30,
-                                    height: 15,
-                                    child: Center(),
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Text(
-                                        "LUNCH",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Icon(
-                                        Icons.breakfast_dining,
-                                        size: 18,
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  foodslist == null
-                                      ? Flexible(
-                                          child: Container(
-                                              child: Center(
-                                                  child: Text(
-                                          'LOADING LUNCH',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        ))))
-                                      : Flexible(
-                                          child: SingleChildScrollView(
-                                              child: Column(
-                                            children: List.generate(
-                                                foodslist.length, (index) {
-                                              return Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    10, 0, 10, 0),
-                                                child: Column(
-                                                  children: [
-                                                    SizedBox(height: 5),
-                                                    SingleChildScrollView(
-                                                        child: Card(
-                                                      elevation: 5,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10)),
-                                                      margin: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 5,
-                                                          vertical: 5),
-                                                      child: InkWell(
-                                                        onLongPress: () =>
-                                                            _adddialog(),
-                                                        child:
-                                                            SingleChildScrollView(
-                                                          child: Column(
-                                                            children: [
-                                                              ListTile(
-                                                                title: Text(
-                                                                  foodslist[
-                                                                          index]
-                                                                      ['name'],
-                                                                ),
-                                                                subtitle: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .min,
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Text(
-                                                                      'Quantity: ' +
-                                                                          foodslist[index]
-                                                                              [
-                                                                              'quantity'],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                leading:
-                                                                    ClipRRect(
-                                                                        child:
-                                                                            CachedNetworkImage(
-                                                                  imageUrl:
-                                                                      "http://triold.com/dietdiary/images/foodpictures/${foodslist[index]['name']}.png",
-                                                                  width: 60,
-                                                                  height: 50,
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                  placeholder: (context,
-                                                                          url) =>
-                                                                      new CircularProgressIndicator(),
-                                                                  errorWidget: (context,
-                                                                          url,
-                                                                          error) =>
-                                                                      new Icon(
-                                                                    Icons
-                                                                        .broken_image,
-                                                                    size:
-                                                                        screenWidth /
-                                                                            2,
-                                                                  ),
-                                                                )),
-                                                                trailing:
-                                                                    SizedBox(
-                                                                  width: 75,
-                                                                  child: Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .end,
-                                                                    children: <
-                                                                        Widget>[
-                                                                      Expanded(
-                                                                        child:
-                                                                            Row(
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Container(
-                                                                              width: 15,
-                                                                              height: 15,
-                                                                              decoration: BoxDecoration(
-                                                                                shape: BoxShape.circle,
-                                                                                color: Colors.blue,
-                                                                              ),
-                                                                            ),
-                                                                            Spacer(),
-                                                                            Text(
-                                                                              "PREFER",
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )),
-                                                  ],
-                                                ),
-                                              );
-                                            }),
-                                          )),
-                                        ),
-                                  Container(
-                                    width: 30,
-                                    height: 15,
-                                    child: Center(),
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Text(
-                                        "DINNER",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Icon(
-                                        Icons.breakfast_dining,
-                                        size: 18,
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  foodslist == null
-                                      ? Flexible(
-                                          child: Container(
-                                              child: Center(
-                                                  child: Text(
-                                          'LOADING DINNER',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        ))))
-                                      : Flexible(
-                                          child: SingleChildScrollView(
-                                              child: Column(
-                                            children: List.generate(
-                                                foodslist.length, (index) {
-                                              return Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    10, 0, 10, 0),
-                                                child: Column(
-                                                  children: [
-                                                    SizedBox(height: 5),
-                                                    SingleChildScrollView(
-                                                        child: Card(
-                                                      elevation: 5,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10)),
-                                                      margin: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 5,
-                                                          vertical: 5),
-                                                      child: InkWell(
-                                                        onLongPress: () =>
-                                                            _adddialog(),
-                                                        child:
-                                                            SingleChildScrollView(
-                                                          child: Column(
-                                                            children: [
-                                                              ListTile(
-                                                                title: Text(
-                                                                  foodslist[
-                                                                          index]
-                                                                      ['name'],
-                                                                ),
-                                                                subtitle: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .min,
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Text(
-                                                                      'Quantity: ' +
-                                                                          foodslist[index]
-                                                                              [
-                                                                              'quantity'],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                leading:
-                                                                    ClipRRect(
-                                                                        child:
-                                                                            CachedNetworkImage(
-                                                                  imageUrl:
-                                                                      "http://triold.com/dietdiary/images/foodpictures/${foodslist[index]['name']}.png",
-                                                                  width: 60,
-                                                                  height: 50,
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                  placeholder: (context,
-                                                                          url) =>
-                                                                      new CircularProgressIndicator(),
-                                                                  errorWidget: (context,
-                                                                          url,
-                                                                          error) =>
-                                                                      new Icon(
-                                                                    Icons
-                                                                        .broken_image,
-                                                                    size:
-                                                                        screenWidth /
-                                                                            2,
-                                                                  ),
-                                                                )),
-                                                                trailing:
-                                                                    SizedBox(
-                                                                  width: 75,
-                                                                  child: Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .end,
-                                                                    children: <
-                                                                        Widget>[
-                                                                      Expanded(
-                                                                        child:
-                                                                            Row(
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Container(
-                                                                              width: 15,
-                                                                              height: 15,
-                                                                              decoration: BoxDecoration(
-                                                                                shape: BoxShape.circle,
-                                                                                color: Colors.yellow,
-                                                                              ),
-                                                                            ),
-                                                                            Spacer(),
-                                                                            Text(
-                                                                              "PREFER",
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )),
-                                                  ],
-                                                ),
-                                              );
-                                            }),
-                                          )),
-                                        ),
                                 ],
                               ),
+                              Container(
+                                width: 30,
+                                height: 15,
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    "BREASKFAST",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Icon(
+                                    Icons.breakfast_dining,
+                                    size: 18,
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              breakfastlist == null
+                                  ? Flexible(
+                                      child: Container(
+                                          child: Center(
+                                              child: Text(
+                                      'LOADING BREAKFAST',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ))))
+                                  : Flexible(
+                                      child: SingleChildScrollView(
+                                          child: Column(
+                                        children: List.generate(
+                                            breakfastlist.length, (index) {
+                                          return Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                10, 0, 10, 0),
+                                            child: Column(
+                                              children: [
+                                                SingleChildScrollView(
+                                                    child: Card(
+                                                  elevation: 5,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                  margin: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 5,
+                                                      vertical: 5),
+                                                  child: InkWell(
+                                                    onLongPress: () {
+                                                      setState(() {
+                                                        foodname =
+                                                            breakfastlist[index]
+                                                                ['name'];
+                                                        foodcycle =
+                                                            breakfastlist[index]
+                                                                ['cycle'];
+                                                      });
+                                                      _adddialog();
+                                                    },
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        children: [
+                                                          ListTile(
+                                                            title: Text(
+                                                              breakfastlist[
+                                                                      index]
+                                                                  ['name'],
+                                                            ),
+                                                            subtitle: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: <
+                                                                  Widget>[
+                                                                Text(
+                                                                  'Quantity: ' +
+                                                                      breakfastlist[
+                                                                              index]
+                                                                          [
+                                                                          'quantity'],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            leading: ClipRRect(
+                                                                child:
+                                                                    CachedNetworkImage(
+                                                              imageUrl:
+                                                                  "http://triold.com/dietdiary/images/foodpictures/${breakfastlist[index]['name']}.png",
+                                                              width: 60,
+                                                              height: 50,
+                                                              fit: BoxFit.cover,
+                                                              placeholder: (context,
+                                                                      url) =>
+                                                                  new CircularProgressIndicator(),
+                                                              errorWidget:
+                                                                  (context, url,
+                                                                          error) =>
+                                                                      new Icon(
+                                                                Icons
+                                                                    .broken_image,
+                                                                size:
+                                                                    screenWidth /
+                                                                        2,
+                                                              ),
+                                                            )),
+                                                            trailing: SizedBox(
+                                                              width: 75,
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .end,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Expanded(
+                                                                    child: Row(
+                                                                      children: <
+                                                                          Widget>[
+                                                                        Container(
+                                                                          width:
+                                                                              15,
+                                                                          height:
+                                                                              15,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            shape:
+                                                                                BoxShape.circle,
+                                                                            color:
+                                                                                Colors.red,
+                                                                          ),
+                                                                        ),
+                                                                        Spacer(),
+                                                                        Text(
+                                                                          "PREFER",
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                      )),
+                                    ),
+                              Container(
+                                width: 30,
+                                height: 15,
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    "LUNCH",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Icon(
+                                    Icons.breakfast_dining,
+                                    size: 18,
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              lunchlist == null
+                                  ? Flexible(
+                                      child: Container(
+                                          child: Center(
+                                              child: Text(
+                                      'LOADING LUNCH',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ))))
+                                  : Flexible(
+                                      child: SingleChildScrollView(
+                                          child: Column(
+                                        children: List.generate(
+                                            lunchlist.length, (index) {
+                                          return Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                10, 0, 10, 0),
+                                            child: Column(
+                                              children: [
+                                                SizedBox(height: 5),
+                                                SingleChildScrollView(
+                                                    child: Card(
+                                                  elevation: 5,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                  margin: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 5,
+                                                      vertical: 5),
+                                                  child: InkWell(
+                                                    onLongPress: () {
+                                                      setState(() {
+                                                        foodname =
+                                                            lunchlist[index]
+                                                                ['name'];
+                                                        foodcycle =
+                                                            lunchlist[index]
+                                                                ['cycle'];
+                                                      });
+                                                      _adddialog();
+                                                    },
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        children: [
+                                                          ListTile(
+                                                            title: Text(
+                                                              lunchlist[index]
+                                                                  ['name'],
+                                                            ),
+                                                            subtitle: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: <
+                                                                  Widget>[
+                                                                Text(
+                                                                  'Quantity: ' +
+                                                                      lunchlist[
+                                                                              index]
+                                                                          [
+                                                                          'quantity'],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            leading: ClipRRect(
+                                                                child:
+                                                                    CachedNetworkImage(
+                                                              imageUrl:
+                                                                  "http://triold.com/dietdiary/images/foodpictures/${lunchlist[index]['name']}.png",
+                                                              width: 60,
+                                                              height: 50,
+                                                              fit: BoxFit.cover,
+                                                              placeholder: (context,
+                                                                      url) =>
+                                                                  new CircularProgressIndicator(),
+                                                              errorWidget:
+                                                                  (context, url,
+                                                                          error) =>
+                                                                      new Icon(
+                                                                Icons
+                                                                    .broken_image,
+                                                                size:
+                                                                    screenWidth /
+                                                                        2,
+                                                              ),
+                                                            )),
+                                                            trailing: SizedBox(
+                                                              width: 75,
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .end,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Expanded(
+                                                                    child: Row(
+                                                                      children: <
+                                                                          Widget>[
+                                                                        Container(
+                                                                          width:
+                                                                              15,
+                                                                          height:
+                                                                              15,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            shape:
+                                                                                BoxShape.circle,
+                                                                            color:
+                                                                                Colors.blue,
+                                                                          ),
+                                                                        ),
+                                                                        Spacer(),
+                                                                        Text(
+                                                                          "PREFER",
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                      )),
+                                    ),
+                              Container(
+                                width: 30,
+                                height: 15,
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    "DINNER",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Icon(
+                                    Icons.breakfast_dining,
+                                    size: 18,
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              dinnerlist == null
+                                  ? Flexible(
+                                      child: Container(
+                                          child: Center(
+                                              child: Text(
+                                      'LOADING DINNER',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ))))
+                                  : Flexible(
+                                      child: SingleChildScrollView(
+                                          child: Column(
+                                        children: List.generate(
+                                            dinnerlist.length, (index) {
+                                          return Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                10, 0, 10, 0),
+                                            child: Column(
+                                              children: [
+                                                SizedBox(height: 5),
+                                                SingleChildScrollView(
+                                                    child: Card(
+                                                  elevation: 5,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                  margin: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 5,
+                                                      vertical: 5),
+                                                  child: InkWell(
+                                                    onLongPress: () {
+                                                      setState(() {
+                                                        foodname =
+                                                            dinnerlist[index]
+                                                                ['name'];
+                                                        foodcycle =
+                                                            dinnerlist[index]
+                                                                ['cycle'];
+                                                      });
+                                                      _adddialog();
+                                                    },
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        children: [
+                                                          ListTile(
+                                                            title: Text(
+                                                              dinnerlist[index]
+                                                                  ['name'],
+                                                            ),
+                                                            subtitle: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: <
+                                                                  Widget>[
+                                                                Text(
+                                                                  'Quantity: ' +
+                                                                      dinnerlist[
+                                                                              index]
+                                                                          [
+                                                                          'quantity'],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            leading: ClipRRect(
+                                                                child:
+                                                                    CachedNetworkImage(
+                                                              imageUrl:
+                                                                  "http://triold.com/dietdiary/images/foodpictures/${dinnerlist[index]['name']}.png",
+                                                              width: 60,
+                                                              height: 50,
+                                                              fit: BoxFit.cover,
+                                                              placeholder: (context,
+                                                                      url) =>
+                                                                  new CircularProgressIndicator(),
+                                                              errorWidget:
+                                                                  (context, url,
+                                                                          error) =>
+                                                                      new Icon(
+                                                                Icons
+                                                                    .broken_image,
+                                                                size:
+                                                                    screenWidth /
+                                                                        2,
+                                                              ),
+                                                            )),
+                                                            trailing: SizedBox(
+                                                              width: 75,
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .end,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Expanded(
+                                                                    child: Row(
+                                                                      children: <
+                                                                          Widget>[
+                                                                        Container(
+                                                                          width:
+                                                                              15,
+                                                                          height:
+                                                                              15,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            shape:
+                                                                                BoxShape.circle,
+                                                                            color:
+                                                                                Colors.yellow,
+                                                                          ),
+                                                                        ),
+                                                                        Spacer(),
+                                                                        Text(
+                                                                          "PREFER",
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                      )),
+                                    ),
                             ],
                           ),
                         );
@@ -595,7 +613,7 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           content: new Text(
-            "Are your sure? ",
+            "Are Your Sure? ",
             style: TextStyle(
               color: Colors.black,
             ),
@@ -609,13 +627,7 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                 ),
               ),
               onPressed: () {
-                Toast.show(
-                  "Add Success",
-                  context,
-                  duration: Toast.LENGTH_LONG,
-                  gravity: Toast.BOTTOM,
-                );
-
+                _insertmealsplan();
                 Navigator.of(context).pop();
               },
             ),
@@ -631,7 +643,7 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                   "Process Cancel",
                   context,
                   duration: Toast.LENGTH_LONG,
-                  gravity: Toast.BOTTOM,
+                  gravity: Toast.TOP,
                 );
                 Navigator.of(context).pop();
               },
@@ -656,7 +668,9 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
         setState(() {
           var jsondata = json.decode(res.body);
           bmiinfolist = jsondata["infobmi"];
-          _loadfood();
+          _loadbreakfast();
+          _loadlunch();
+          _loaddinner();
         });
       }
     }).catchError((err) {
@@ -664,22 +678,89 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
     });
   }
 
-  void _loadfood() {
-    http.post("http://triold.com/dietdiary/php/load_food_list.php", body: {
+  void _loadbreakfast() {
+    http.post("http://triold.com/dietdiary/php/load_breakfast.php", body: {
       "type": bmiinfolist[0]['type'],
       "cycle": "Breakfast"
     }).then((res) {
       print(res.body);
       if (res.body == "nodata") {
-        foodslist = null;
+        breakfastlist = null;
         setState(() {
           print('failed');
         });
       } else {
         setState(() {
           var jsondata = json.decode(res.body);
-          foodslist = jsondata["foods"];
+          breakfastlist = jsondata["breakfast"];
         });
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  void _loadlunch() {
+    http.post("http://triold.com/dietdiary/php/load_lunch.php",
+        body: {"type": bmiinfolist[0]['type'], "cycle": "Lunch"}).then((res) {
+      print(res.body);
+      if (res.body == "nodata") {
+        lunchlist = null;
+        setState(() {
+          print('failed');
+        });
+      } else {
+        setState(() {
+          var jsondata = json.decode(res.body);
+          lunchlist = jsondata["lunch"];
+        });
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  void _loaddinner() {
+    http.post("http://triold.com/dietdiary/php/load_dinner.php",
+        body: {"type": bmiinfolist[0]['type'], "cycle": "Dinner"}).then((res) {
+      print(res.body);
+      if (res.body == "nodata") {
+        dinnerlist = null;
+        setState(() {
+          print('failed');
+        });
+      } else {
+        setState(() {
+          var jsondata = json.decode(res.body);
+          dinnerlist = jsondata["dinner"];
+        });
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  void _insertmealsplan() {
+    http.post("http://triold.com/dietdiary/php/insertmealsplan.php", body: {
+      "email": widget.user.email,
+      "name": foodname,
+      "cycle": foodcycle,
+    }).then((res) {
+      print(res.body);
+      if (res.body == "success") {
+        Toast.show(
+          "Process Success",
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.TOP,
+        );
+      } else {
+        Toast.show(
+          "Process Failed",
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.TOP,
+        );
       }
     }).catchError((err) {
       print(err);

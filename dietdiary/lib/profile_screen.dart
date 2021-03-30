@@ -82,8 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 MaterialPageRoute(
                                     builder: (buildContextcontext) =>
                                         DietchecklistScreen(
-                                          user: widget.user
-                                        )));
+                                            user: widget.user)));
                           },
                         ),
                       ])),
@@ -134,7 +133,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Container(
                       child: Center(
                           child: Text(
-                  'Halo  '+'  PLEASE PRESS THIS BUTTON TO CONTINUE CALCULATE BMI ', textAlign: TextAlign.center,
+                  ' Loading Data',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -369,7 +369,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   "Logout Success",
                   context,
                   duration: Toast.LENGTH_LONG,
-                  gravity: Toast.BOTTOM,
+                  gravity: Toast.TOP,
                 );
                 Navigator.push(
                     context,
@@ -389,7 +389,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   "Cancel Process",
                   context,
                   duration: Toast.LENGTH_LONG,
-                  gravity: Toast.BOTTOM,
+                  gravity: Toast.TOP,
                 );
                 Navigator.of(context).pop();
               },

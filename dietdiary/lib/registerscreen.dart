@@ -192,7 +192,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                       } else {
                         Toast.show("Please Check And Fill In All Required Info",
                             context,
-                            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                            duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
                       }
                     },
                     shape: RoundedRectangleBorder(
@@ -242,7 +242,7 @@ class _RegisterscreenState extends State<Registerscreen> {
             }).then((res) {
           if (res.body == "success") {
             Toast.show("Registration success", context,
-                duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
             setState(() {
               _nmcontroller.text = '';
               _emcontroller.text = '';
@@ -252,7 +252,7 @@ class _RegisterscreenState extends State<Registerscreen> {
             });
           } else {
             Toast.show("Registration failed", context,
-                duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
           }
         }).catchError((err) {
           print(err);
@@ -261,7 +261,7 @@ class _RegisterscreenState extends State<Registerscreen> {
       }
     } else {
       Toast.show("Please accept terms and condition ", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+          duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
     }
   }
 

@@ -304,11 +304,11 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
       "email": widget.user.email,
     }).then((res) {
        if (res.body == "success") {
-        Toast.show("BMI INFO SAVED", context,
-            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        Toast.show("BMI INFO SAVED/ UPDATED", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
       }else {
         Toast.show("FAILED TO SAVE BMI INFO", context,
-            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+            duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
       }
     }).catchError((err) {
       print(err);
