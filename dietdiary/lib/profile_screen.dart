@@ -102,7 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (buildContextcontext) =>
-                                        DietplandetailScreen()));
+                                        DietplandetailScreen(  user: widget.user)));
                           },
                         ),
                       ])),

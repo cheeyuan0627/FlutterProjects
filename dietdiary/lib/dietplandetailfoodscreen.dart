@@ -44,7 +44,7 @@ class _DietplandetailbreakfastScreenState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Image.asset(
-                              "assets/images/yougurt.png",
+                              "assets/images/Egg.png",
                               width: 150,
                               height: 200,
                               fit: BoxFit.cover,
@@ -99,7 +99,7 @@ class _DietplandetailbreakfastScreenState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Image.asset(
-                              "assets/images/egg.jpg",
+                              "assets/images/Egg.png",
                               width: 150,
                               height: 200,
                               fit: BoxFit.cover,
@@ -253,7 +253,7 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Image.asset(
-                              "assets/images/salad.jpg",
+                              "assets/images/Egg.png",
                               width: 150,
                               height: 200,
                               fit: BoxFit.cover,
@@ -308,7 +308,7 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Image.asset(
-                              "assets/images/wholegrains.jpg",
+                              "assets/images/Egg.png",
                               width: 150,
                               height: 200,
                               fit: BoxFit.cover,
@@ -462,7 +462,7 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Image.asset(
-                              "assets/images/boiledpotatoes.jpg",
+                              "assets/images/Egg.png",
                               width: 150,
                               height: 200,
                               fit: BoxFit.cover,
@@ -517,7 +517,7 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Image.asset(
-                              "assets/images/soup.jpg",
+                              "assets/images/Egg.png",
                               width: 150,
                               height: 200,
                               fit: BoxFit.cover,
