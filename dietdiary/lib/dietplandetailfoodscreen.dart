@@ -1,8 +1,16 @@
+import 'dart:convert';
 import 'package:dietdiary/dietplandetailscreen.dart';
+import 'package:dietdiary/user.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
+import 'package:http/http.dart' as http;
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DietplanbreakfastScreen extends StatefulWidget {
+  final User user;
+
+  const DietplanbreakfastScreen({Key key, this.user}) : super(key: key);
+
   @override
   _DietplandetailbreakfastScreenState createState() =>
       _DietplandetailbreakfastScreenState();
@@ -10,6 +18,16 @@ class DietplanbreakfastScreen extends StatefulWidget {
 
 class _DietplandetailbreakfastScreenState
     extends State<DietplanbreakfastScreen> {
+  double screenHeight, screenWidth;
+  List mealbreakfastlist;
+  String foodname;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadmealbreakfast();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,131 +40,114 @@ class _DietplandetailbreakfastScreenState
           leading: IconButton(
             icon: Icon(Icons.keyboard_return),
             onPressed: () {
-              Navigator.pop(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          DietplandetailScreen()));
+                          DietplandetailScreen(user: widget.user)));
             },
           ),
         ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-          child: Column(
+        body: Stack(children: [
+          Column(
             children: [
-              Card(
-                child: InkWell(
-                  onLongPress: () => _deletedialog(),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/images/Egg.png",
-                              width: 150,
-                              height: 200,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(width: 20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 50,
+              mealbreakfastlist == null
+                  ? Flexible(
+                      child: Container(
+                          child: Center(
+                              child: Text(
+                      'LOADING BREAKFAST LIST ',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ))))
+                  : Flexible(
+                      child: SingleChildScrollView(
+                          child: Column(
+                              children: List.generate(mealbreakfastlist.length,
+                                  (index) {
+                        return Padding(
+                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          child: Column(
+                            children: [
+                              SingleChildScrollView(
+                                  child: Card(
+                                child: InkWell(
+                                  onLongPress: () {
+                                    setState(() {
+                                      foodname =
+                                          mealbreakfastlist[index]['name'];
+                                    });
+                                    _deletedialog();
+                                  },
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            "http://triold.com/dietdiary/images/foodpictures/${mealbreakfastlist[index]['name']}.png",
+                                        width: 150,
+                                        height: 150,
+                                        fit: BoxFit.contain,
+                                        placeholder: (context, url) =>
+                                            new CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) =>
+                                            new Icon(
+                                          Icons.broken_image,
+                                          size: screenWidth / 2,
+                                        ),
+                                      ),
+                                      SizedBox(width: 20),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                       
+                                          SizedBox(height: 30),
+                                          Text(
+                                            'Food Name: ' +
+                                                mealbreakfastlist[index]
+                                                    ['name'],
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            'Calories per: ' +
+                                                mealbreakfastlist[index]
+                                                    ['calorie'] +
+                                                ' Cal',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            'Quantity: ' +
+                                                mealbreakfastlist[index]
+                                                    ['quantity'],
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Food Name: Yougurt',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Calories per: 120 cal',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Quantity: 1',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                          ],
-                        ),
-                      ],
+                              ))
+                            ],
+                          ),
+                        );
+                      }))),
                     ),
-                  ),
-                ),
-              ),
-              Card(
-                child: InkWell(
-                  onLongPress: () => _deletedialog(),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/images/Egg.png",
-                              width: 150,
-                              height: 200,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(width: 20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 50,
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Food Name: Egg',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Calories per: 65 cal',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Quantity: 1',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
-        ),
+        ]),
       ),
     );
   }
@@ -165,7 +166,7 @@ class _DietplandetailbreakfastScreenState
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           content: new Text(
-            "Are your sure? ",
+            "Are Your Sure? ",
             style: TextStyle(
               color: Colors.black,
             ),
@@ -179,12 +180,7 @@ class _DietplandetailbreakfastScreenState
                 ),
               ),
               onPressed: () {
-                Toast.show(
-                  "Delete Success",
-                  context,
-                  duration: Toast.LENGTH_LONG,
-                  gravity: Toast.BOTTOM,
-                );
+                _deletebreakfast();
                 Navigator.of(context).pop();
               },
             ),
@@ -200,7 +196,7 @@ class _DietplandetailbreakfastScreenState
                   "Process Cancel",
                   context,
                   duration: Toast.LENGTH_LONG,
-                  gravity: Toast.BOTTOM,
+                  gravity: Toast.TOP,
                 );
                 Navigator.of(context).pop();
               },
@@ -210,17 +206,79 @@ class _DietplandetailbreakfastScreenState
       },
     );
   }
+
+  void _deletebreakfast() async {
+    http.post("http://triold.com/dietdiary/php/delete_mealsplan.php", body: {
+      "email": widget.user.email,
+      "name": foodname,
+      "cycle": mealbreakfastlist[0]['cycle'],
+    }).then((res) {
+      print(res.body);
+      print(foodname);
+      if (res.body == "success") {
+        _loadmealbreakfast();
+        Toast.show(
+          "Process Success",
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.TOP,
+        );
+      } else {
+        Toast.show(
+          "Process Failed",
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.TOP,
+        );
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  void _loadmealbreakfast() {
+    http.post("http://triold.com/dietdiary/php/load_mealsplanbreakfast.php",
+        body: {"email": widget.user.email, "cycle": "Breakfast"}).then((res) {
+      print(res.body);
+      if (res.body == "nodata") {
+        mealbreakfastlist = null;
+        setState(() {
+          print('failed');
+        });
+      } else {
+        setState(() {
+          var jsondata = json.decode(res.body);
+          mealbreakfastlist = jsondata["mealbreakfast"];
+        });
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
 }
 
 class DietplanlunchScreen extends StatefulWidget {
+   final User user;
+
+  const DietplanlunchScreen({Key key, this.user}) : super(key: key);
+
+  
   @override
   _DietplandetaillunchScreenState createState() =>
       _DietplandetaillunchScreenState();
 }
 
 class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
+   double screenHeight, screenWidth;
+  List meallunchlist;
+  String foodname;
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    _loadmeallunch();
+  }
+ Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -231,134 +289,117 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
           leading: IconButton(
             icon: Icon(Icons.keyboard_return),
             onPressed: () {
-              Navigator.pop(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          DietplandetailScreen()));
+                          DietplandetailScreen(user: widget.user)));
             },
           ),
         ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-          child: Column(
+        body: Stack(children: [
+          Column(
             children: [
-              Card(
-                child: InkWell(
-                  onLongPress: () => _deletedialog(),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/images/Egg.png",
-                              width: 150,
-                              height: 200,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(width: 20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 50,
+              meallunchlist == null
+                  ? Flexible(
+                      child: Container(
+                          child: Center(
+                              child: Text(
+                      'LOADING LUNCH LIST ',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ))))
+                  : Flexible(
+                      child: SingleChildScrollView(
+                          child: Column(
+                              children: List.generate(meallunchlist.length,
+                                  (index) {
+                        return Padding(
+                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          child: Column(
+                            children: [
+                              SingleChildScrollView(
+                                  child: Card(
+                                child: InkWell(
+                                  onLongPress: () {
+                                    setState(() {
+                                      foodname =
+                                          meallunchlist[index]['name'];
+                                    });
+                                    _deletedialog();
+                                  },
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            "http://triold.com/dietdiary/images/foodpictures/${meallunchlist[index]['name']}.png",
+                                        width: 150,
+                                        height: 150,
+                                        fit: BoxFit.cover,
+                                        placeholder: (context, url) =>
+                                            new CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) =>
+                                            new Icon(
+                                          Icons.broken_image,
+                                          size: screenWidth / 2,
+                                        ),
+                                      ),
+                                      SizedBox(width: 20),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                             SizedBox(height: 30),
+                                          Text(
+                                            'Food Name: ' +
+                                                meallunchlist[index]
+                                                    ['name'],
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            'Calories per: ' +
+                                                meallunchlist[index]
+                                                    ['calorie'] +
+                                                ' Cal',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            'Quantity: ' +
+                                                meallunchlist[index]
+                                                    ['quantity'],
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Food Name: Greek Quinoa Salad',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Calories per: 98 cal',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Quantity: 1',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                          ],
-                        ),
-                      ],
+                              ))
+                            ],
+                          ),
+                        );
+                      }))),
                     ),
-                  ),
-                ),
-              ),
-              Card(
-                child: InkWell(
-                  onLongPress: () => _deletedialog(),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/images/Egg.png",
-                              width: 150,
-                              height: 200,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(width: 20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 50,
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Food Name: Wholr Grains',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Calories per: 136 cal',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Quantity: 1',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
-        ),
+        ]),
       ),
     );
   }
+
 
   _deletedialog() {
     showDialog(
@@ -374,7 +415,7 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           content: new Text(
-            "Are your sure? ",
+            "Are Your Sure? ",
             style: TextStyle(
               color: Colors.black,
             ),
@@ -388,12 +429,7 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
                 ),
               ),
               onPressed: () {
-                Toast.show(
-                  "Delete Success",
-                  context,
-                  duration: Toast.LENGTH_LONG,
-                  gravity: Toast.BOTTOM,
-                );
+                _deletelunch();
                 Navigator.of(context).pop();
               },
             ),
@@ -409,7 +445,7 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
                   "Process Cancel",
                   context,
                   duration: Toast.LENGTH_LONG,
-                  gravity: Toast.BOTTOM,
+                  gravity: Toast.TOP,
                 );
                 Navigator.of(context).pop();
               },
@@ -419,17 +455,79 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
       },
     );
   }
+
+  void _deletelunch() async {
+    http.post("http://triold.com/dietdiary/php/delete_mealsplan.php", body: {
+      "email": widget.user.email,
+      "name": foodname,
+      "cycle": meallunchlist[0]['cycle'],
+    }).then((res) {
+      print(res.body);
+      print(foodname);
+      if (res.body == "success") {
+        _loadmeallunch();
+        Toast.show(
+          "Process Success",
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.TOP,
+        );
+      } else {
+        Toast.show(
+          "Process Failed",
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.TOP,
+        );
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  void _loadmeallunch() {
+    http.post("http://triold.com/dietdiary/php/load_mealsplanlunch.php",
+        body: {"email": widget.user.email, "cycle": "Lunch"}).then((res) {
+      print(res.body);
+      if (res.body == "nodata") {
+        meallunchlist = null;
+        setState(() {
+          print('failed');
+        });
+      } else {
+        setState(() {
+          var jsondata = json.decode(res.body);
+          meallunchlist = jsondata["meallunch"];
+        });
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
 }
 
 class DietplandinnerScreen extends StatefulWidget {
+     final User user;
+
+  const DietplandinnerScreen({Key key, this.user}) : super(key: key);
+
   @override
   _DietplandetaildinnerScreenState createState() =>
       _DietplandetaildinnerScreenState();
 }
 
 class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
+   double screenHeight, screenWidth;
+  List mealdinnerlist;
+  String foodname;
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    _loadmealdinner();
+  }
+  
+ Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -440,134 +538,117 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
           leading: IconButton(
             icon: Icon(Icons.keyboard_return),
             onPressed: () {
-              Navigator.pop(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          DietplandetailScreen()));
+                          DietplandetailScreen(user: widget.user)));
             },
           ),
         ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-          child: Column(
+        body: Stack(children: [
+          Column(
             children: [
-              Card(
-                child: InkWell(
-                  onLongPress: () => _deletedialog(),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/images/Egg.png",
-                              width: 150,
-                              height: 200,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(width: 20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 50,
+              mealdinnerlist == null
+                  ? Flexible(
+                      child: Container(
+                          child: Center(
+                              child: Text(
+                      'LOADING DINNER LIST ',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ))))
+                  : Flexible(
+                      child: SingleChildScrollView(
+                          child: Column(
+                              children: List.generate(mealdinnerlist.length,
+                                  (index) {
+                        return Padding(
+                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          child: Column(
+                            children: [
+                              SingleChildScrollView(
+                                  child: Card(
+                                child: InkWell(
+                                  onLongPress: () {
+                                    setState(() {
+                                      foodname =
+                                          mealdinnerlist[index]['name'];
+                                    });
+                                    _deletedialog();
+                                  },
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            "http://triold.com/dietdiary/images/foodpictures/${mealdinnerlist[index]['name']}.png",
+                                        width: 150,
+                                        height: 150,
+                                        fit: BoxFit.cover,
+                                        placeholder: (context, url) =>
+                                            new CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) =>
+                                            new Icon(
+                                          Icons.broken_image,
+                                          size: screenWidth / 2,
+                                        ),
+                                      ),
+                                      SizedBox(width: 20),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                            SizedBox(height: 30),
+                                          Text(
+                                            'Food Name: ' +
+                                                mealdinnerlist[index]
+                                                    ['name'],
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            'Calories per: ' +
+                                                mealdinnerlist[index]
+                                                    ['calorie'] +
+                                                ' Cal',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            'Quantity: ' +
+                                                mealdinnerlist[index]
+                                                    ['quantity'],
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Food Name: Bolled Potatoes',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Calories per: 180 cal',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Quantity: 1',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                          ],
-                        ),
-                      ],
+                              ))
+                            ],
+                          ),
+                        );
+                      }))),
                     ),
-                  ),
-                ),
-              ),
-              Card(
-                child: InkWell(
-                  onLongPress: () => _deletedialog(),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/images/Egg.png",
-                              width: 150,
-                              height: 200,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(width: 20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 50,
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Food Name: Soup',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Calories per: 89 cal',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Quantity: 1',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
-        ),
+        ]),
       ),
     );
   }
+
 
   _deletedialog() {
     showDialog(
@@ -583,7 +664,7 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           content: new Text(
-            "Are your sure? ",
+            "Are Your Sure? ",
             style: TextStyle(
               color: Colors.black,
             ),
@@ -597,12 +678,7 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
                 ),
               ),
               onPressed: () {
-                Toast.show(
-                  "Delete Success",
-                  context,
-                  duration: Toast.LENGTH_LONG,
-                  gravity: Toast.BOTTOM,
-                );
+                _deletedinner();
                 Navigator.of(context).pop();
               },
             ),
@@ -618,7 +694,7 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
                   "Process Cancel",
                   context,
                   duration: Toast.LENGTH_LONG,
-                  gravity: Toast.BOTTOM,
+                  gravity: Toast.TOP,
                 );
                 Navigator.of(context).pop();
               },
@@ -627,5 +703,54 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
         );
       },
     );
+  }
+
+  void _deletedinner() async {
+    http.post("http://triold.com/dietdiary/php/delete_mealsplan.php", body: {
+      "email": widget.user.email,
+      "name": foodname,
+      "cycle": mealdinnerlist[0]['cycle'],
+    }).then((res) {
+      print(res.body);
+      print(foodname);
+      if (res.body == "success") {
+        _loadmealdinner();
+        Toast.show(
+          "Process Success",
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.TOP,
+        );
+      } else {
+        Toast.show(
+          "Process Failed",
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.TOP,
+        );
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  void _loadmealdinner() {
+    http.post("http://triold.com/dietdiary/php/load_mealsplandinner.php",
+        body: {"email": widget.user.email, "cycle": "Dinner"}).then((res) {
+      print(res.body);
+      if (res.body == "nodata") {
+        mealdinnerlist = null;
+        setState(() {
+          print('failed');
+        });
+      } else {
+        setState(() {
+          var jsondata = json.decode(res.body);
+          mealdinnerlist = jsondata["mealdinner"];
+        });
+      }
+    }).catchError((err) {
+      print(err);
+    });
   }
 }

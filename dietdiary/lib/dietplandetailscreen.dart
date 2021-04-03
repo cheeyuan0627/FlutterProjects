@@ -45,10 +45,10 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
           leading: IconButton(
             icon: Icon(Icons.home),
             onPressed: () {
-              Navigator.pop(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => ProfileScreen()));
+                      builder: (BuildContext context) => ProfileScreen(user: widget.user)));
             },
           ),
         ),
@@ -109,7 +109,7 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              DietplanbreakfastScreen())),
+                              DietplanbreakfastScreen( user: widget.user))),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -162,7 +162,7 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              DietplanlunchScreen())),
+                              DietplanlunchScreen(user: widget.user))),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -215,7 +215,7 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              DietplandinnerScreen())),
+                              DietplandinnerScreen(user: widget.user))),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
