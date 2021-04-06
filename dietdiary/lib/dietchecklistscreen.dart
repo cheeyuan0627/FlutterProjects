@@ -40,10 +40,10 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
               leading: IconButton(
                 icon: Icon(Icons.home),
                 onPressed: () {
-                  Navigator.pop(
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (BuildContext context) => ProfileScreen()));
+                          builder: (BuildContext context) => ProfileScreen(user: widget.user)));
                 },
               ),
             ),

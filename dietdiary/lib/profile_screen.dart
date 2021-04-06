@@ -4,7 +4,6 @@ import 'package:dietdiary/loginscreen.dart';
 import 'package:dietdiary/monitorscreen.dart';
 import 'package:dietdiary/user.dart';
 import 'package:flutter/material.dart';
-import 'package:dietdiary/meal.dart';
 import 'bmiscreen.dart';
 import 'dietchecklistscreen.dart';
 import 'package:http/http.dart' as http;
@@ -21,11 +20,20 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   List bmiinfolist;
+  List mealbreakfastlist;
+  List meallunchlist;
+  List mealdinnerlist;
+  int i;
+  int j;
+  int k;
 
   @override
   void initState() {
     super.initState();
     _loadbmi();
+    _loadmealbreakfast();
+    _loadmeallunch();
+    _loadmealdinner();
   }
 
   @override
@@ -318,10 +326,333 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           SizedBox(
                                             width: 32,
                                           ),
-                                          for (int i = 0; i < meals.length; i++)
-                                            _MealCard(
-                                              meal: meals[i],
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                              right: 20,
+                                              bottom: 10,
                                             ),
+                                            child: Material(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              elevation: 4,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: <Widget>[
+                                                  Flexible(
+                                                    fit: FlexFit.tight,
+                                                    child: GestureDetector(
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    20)),
+                                                        child: Image.asset(
+                                                          "assets/images/breakfast.png",
+                                                          width: 150,
+                                                          height: 200,
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  mealbreakfastlist == null
+                                                      ? Flexible(
+                                                          child: Container(
+                                                              child: Center(
+                                                                  child: Text(
+                                                          '    Loading Data ...',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ))))
+                                                      : Flexible(
+                                                          fit: FlexFit.tight,
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 12.0),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                SizedBox(
+                                                                    height: 5),
+                                                                Text(
+                                                                  'BREAKFAST',
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontSize:
+                                                                        14,
+                                                                    color: Colors
+                                                                        .blueGrey,
+                                                                  ),
+                                                                ),
+                                                                for (i = 0;
+                                                                    i <
+                                                                        mealbreakfastlist
+                                                                            .length;
+                                                                    i++)
+                                                                  Text(
+                                                                    (i + 1).toString() +
+                                                                        '. ' +
+                                                                        mealbreakfastlist[i]
+                                                                            [
+                                                                            'name'],
+                                                                    style:
+                                                                        const TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      fontSize:
+                                                                          13,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
+                                                                  ),
+                                                                SizedBox(
+                                                                    height: 16),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                              right: 20,
+                                              bottom: 10,
+                                            ),
+                                            child: Material(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              elevation: 4,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: <Widget>[
+                                                  Flexible(
+                                                    fit: FlexFit.tight,
+                                                    child: GestureDetector(
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    20)),
+                                                        child: Image.asset(
+                                                          "assets/images/lunch.png",
+                                                          width: 150,
+                                                          height: 200,
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  meallunchlist == null
+                                                      ? Flexible(
+                                                          child: Container(
+                                                              child: Center(
+                                                                  child: Text(
+                                                          '    Loading Data ...',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ))))
+                                                      : Flexible(
+                                                          fit: FlexFit.tight,
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 12.0),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                SizedBox(
+                                                                    height: 5),
+                                                                Text(
+                                                                  'LUNCH',
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontSize:
+                                                                        14,
+                                                                    color: Colors
+                                                                        .blueGrey,
+                                                                  ),
+                                                                ),
+                                                                for (j = 0;
+                                                                    j <
+                                                                        meallunchlist
+                                                                            .length;
+                                                                    j++)
+                                                                  Text(
+                                                                    (j + 1).toString() +
+                                                                        '. ' +
+                                                                        meallunchlist[j]
+                                                                            [
+                                                                            'name'],
+                                                                    style:
+                                                                        const TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      fontSize:
+                                                                          13,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
+                                                                  ),
+                                                                SizedBox(
+                                                                    height: 16),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                              right: 20,
+                                              bottom: 10,
+                                            ),
+                                            child: Material(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              elevation: 4,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: <Widget>[
+                                                  Flexible(
+                                                    fit: FlexFit.tight,
+                                                    child: GestureDetector(
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    20)),
+                                                        child: Image.asset(
+                                                          "assets/images/dinner.png",
+                                                          width: 150,
+                                                          height: 200,
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  mealdinnerlist == null
+                                                      ? Flexible(
+                                                          child: Container(
+                                                              child: Center(
+                                                                  child: Text(
+                                                          '    Loading Data ...',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ))))
+                                                      : Flexible(
+                                                          fit: FlexFit.tight,
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 12.0),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                SizedBox(
+                                                                    height: 5),
+                                                                Text(
+                                                                  'DINNER',
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontSize:
+                                                                        14,
+                                                                    color: Colors
+                                                                        .blueGrey,
+                                                                  ),
+                                                                ),
+                                                                for (k = 0;
+                                                                    k <
+                                                                        mealdinnerlist
+                                                                            .length;
+                                                                    k++)
+                                                                  Text(
+                                                                    (k + 1).toString() +
+                                                                        '. ' +
+                                                                        mealdinnerlist[k]
+                                                                            [
+                                                                            'name'],
+                                                                    style:
+                                                                        const TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      fontSize:
+                                                                          13,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
+                                                                  ),
+                                                                SizedBox(
+                                                                    height: 16),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -421,6 +752,66 @@ class _ProfileScreenState extends State<ProfileScreen> {
       print(err);
     });
   }
+
+  void _loadmealbreakfast() {
+    http.post("http://triold.com/dietdiary/php/load_mealsplanbreakfast.php",
+        body: {"email": widget.user.email, "cycle": "Breakfast"}).then((res) {
+      print(res.body);
+      if (res.body == "nodata") {
+        mealbreakfastlist = null;
+        setState(() {
+          print('failed');
+        });
+      } else {
+        setState(() {
+          var jsondata = json.decode(res.body);
+          mealbreakfastlist = jsondata["mealbreakfast"];
+        });
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  void _loadmeallunch() {
+    http.post("http://triold.com/dietdiary/php/load_mealsplanlunch.php",
+        body: {"email": widget.user.email, "cycle": "Lunch"}).then((res) {
+      print(res.body);
+      if (res.body == "nodata") {
+        meallunchlist = null;
+        setState(() {
+          print('failed');
+        });
+      } else {
+        setState(() {
+          var jsondata = json.decode(res.body);
+          meallunchlist = jsondata["meallunch"];
+        });
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  void _loadmealdinner() {
+    http.post("http://triold.com/dietdiary/php/load_mealsplandinner.php",
+        body: {"email": widget.user.email, "cycle": "Dinner"}).then((res) {
+      print(res.body);
+      if (res.body == "nodata") {
+        mealdinnerlist = null;
+        setState(() {
+          print('failed');
+        });
+      } else {
+        setState(() {
+          var jsondata = json.decode(res.body);
+          mealdinnerlist = jsondata["mealdinner"];
+        });
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
 }
 
 class _IngredientProgress extends StatelessWidget {
@@ -475,83 +866,6 @@ class _IngredientProgress extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-}
-
-class _MealCard extends StatelessWidget {
-  final Meal meal;
-
-  const _MealCard({Key key, @required this.meal}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(
-        right: 20,
-        bottom: 10,
-      ),
-      child: Material(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        elevation: 4,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Flexible(
-              fit: FlexFit.tight,
-              child: GestureDetector(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  child: Image.asset(
-                    meal.imagePath,
-                    width: 150,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-            ),
-            Flexible(
-              fit: FlexFit.tight,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(height: 5),
-                    Text(
-                      meal.mealTime,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        color: Colors.blueGrey,
-                      ),
-                    ),
-                    Text(
-                      "1. " + meal.name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13,
-                        color: Colors.black,
-                      ),
-                    ),
-                    Text(
-                      "2. " + meal.kiloCaloriesBurnt,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
