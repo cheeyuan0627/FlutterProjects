@@ -1,340 +1,408 @@
+import 'dart:convert';
+import 'package:dietdiary/user.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:toast/toast.dart';
-
 import 'profile_screen.dart';
+import 'package:http/http.dart' as http;
 
-class MonitorScreen extends StatelessWidget {
+class MonitorScreen extends StatefulWidget {
+  final User user;
+
+  const MonitorScreen({Key key, this.user}) : super(key: key);
+  @override
+  _MonitorScreenState createState() => _MonitorScreenState();
+}
+
+class _MonitorScreenState extends State<MonitorScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _loadmeal();
+  }
+
+  List<String> foodlist = [
+    "Meal",
+    "Bread",
+    "Fruit",
+    "Vegetable",
+  ];
+
+  String selectedfood;
+
+  List<String> quantitylist = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+  ];
+
+  String selectedquantity;
+
+  List meallist;
+  List userdailydatalist;
+  double usercal = 0.0;
+  double totalsuggestioncal = 0.0;
+  double calleft = 0.0;
+  int j;
+  int k = 0;
+  int i = 0;
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      body: SafeArea(
-        child: ListView(
-          children: [
-            TodayCounter(),
-            TodayStats(),
-            KcalGraph(),
-          ],
-          padding: EdgeInsets.all(20),
-        ),
-      ),
       appBar: AppBar(
-        title: Text('Monitor Daily Calories'),
+        title: Text('Daily Cal Monitor'),
         backgroundColor: Colors.black87,
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.home),
           onPressed: () {
-            Navigator.pop(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => ProfileScreen()));
+                    builder: (BuildContext context) =>
+                        ProfileScreen(user: widget.user)));
           },
         ),
       ),
-    );
-  }
-  
-}
-
-/// Calorie counter for the day
-class TodayCounter extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return FancyCard(
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.only(bottom: 15),
-      borderRadius: 15,
-      gradient: Gradients.blush,
-      boxShadow: BoxShadow(
-        color: Colors.blueGrey[50],
-        blurRadius: 5.0,
-        offset: Offset(1, 1),
-      ),
-      child: Row(children: [
-        Expanded(
-          child: Column(
-            children: [
-              Text(
-                "1423",
-                style: TextStyle(
-                  fontSize: 35,
-                  color: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(children: [
+          FancyCard(
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.all(10),
+            borderRadius: 15,
+            gradient: Gradients.cosmicFusion,
+            boxShadow: BoxShadow(
+              color: Colors.blueGrey[50],
+              blurRadius: 5.0,
+              offset: Offset(1, 1),
+            ),
+            child: Row(children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      totalsuggestioncal.toStringAsFixed(0),
+                      style: TextStyle(
+                        fontSize: 35,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      "Suggestion cal",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Text(
-                "Suggestion cal",
-                style: TextStyle(
-                  color: Colors.white,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      usercal.toStringAsFixed(0),
+                      style: TextStyle(
+                        fontSize: 35,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      "          User's cal ",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+              SizedBox(width: 30),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      calleft.toStringAsFixed(0),
+                      style: TextStyle(
+                        fontSize: 35,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      "Cal left ",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ]),
           ),
-        ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                "1232",
-                style: TextStyle(
-                  fontSize: 35,
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                "User's cal ",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ),SizedBox(width:30),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                "191  ",
-                style: TextStyle(
-                  fontSize: 35,
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                "Cal left       ",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ]),
-    );
-  }
-}
-
-/// Food stats for the day
-class TodayStats extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return FancyCard(
-      padding: const EdgeInsets.all(20),
-      margin: EdgeInsets.only(bottom: 15),
-      borderRadius: 10,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Row(
+          FancyCard(
+            padding: const EdgeInsets.all(10),
+            margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+            borderRadius: 10,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Expanded(child: Text("Calories by food:")),
-                Text(
-                  "1232 cal",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                          child: Text(
+                        "Calories by food:",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                      Text(
+                        usercal.toStringAsFixed(0) + ' Cal',
+                        textAlign: TextAlign.end,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
                 ),
+                for (j = 0; j < k; j++)
+                  (Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: Icon(FontAwesomeIcons.seedling,
+                                color: Colors.green),
+                          ),
+                          Text(userdailydatalist[j]['foodname'],
+                              textAlign: TextAlign.start),
+                          Expanded(
+                              child: Text(
+                                  userdailydatalist[j]['quantity'] +
+                                      ' Qty * ' +
+                                      userdailydatalist[j]['calorie'] +' Cal ',
+                                  textAlign: TextAlign.end)),
+                        ],
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        top: BorderSide(
+                          width: 1,
+                          color: Colors.grey[300],
+                        ),
+                      ),
+                    ),
+                  )),
+                SizedBox(height: 15),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        width: 1,
+                        color: Colors.grey[300],
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
-          ),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Icon(FontAwesomeIcons.seedling, color: Colors.green),
-                  ),
-                  Text("Vegetables"),
-                  Expanded(child: Text("110 cal", textAlign: TextAlign.end)),
-                ],
-              ),
-            ),
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  width: 1,
-                  color: Colors.grey[300],
-                ),
-              ),
+            backgroundColor: Colors.white,
+            boxShadow: BoxShadow(
+              color: Colors.grey[400],
+              blurRadius: 3.0,
+              offset: Offset(1, 1),
             ),
           ),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child:
-                        Icon(FontAwesomeIcons.appleAlt, color: Colors.red[400]),
-                  ),
-                  Text("Fruits"),
-                  Expanded(child: Text("134 cal", textAlign: TextAlign.end)),
-                ],
-              ),
-            ),
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  width: 1,
-                  color: Colors.grey[300],
+          FancyCard(
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: [
+                    Icon(Icons.food_bank),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(10, 10, 20, 0),
+                      alignment: Alignment.centerLeft,
+                      height: 40,
+                      child: DropdownButton(
+                        hint: Text(
+                          'Please select the Food type',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
+                        value: selectedfood,
+                        onChanged: (newValue) {
+                          setState(() {
+                            selectedfood = newValue;
+                            print(selectedfood);
+                          });
+                        },
+                        items: foodlist.map((selectedtype) {
+                          return DropdownMenuItem(
+                            child: new Text(selectedtype,
+                                style: TextStyle(color: Colors.black)),
+                            value: selectedtype,
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ),
-          ),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Icon(FontAwesomeIcons.breadSlice,
-                        color: Colors.yellow[700]),
-                  ),
-                  Text("Starch"),
-                  Expanded(child: Text("180 cal", textAlign: TextAlign.end)),
-                ],
-              ),
-            ),
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  width: 1,
-                  color: Colors.grey[300],
+                Row(
+                  children: [
+                    Icon(Icons.format_list_numbered_rtl),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(10, 10, 20, 0),
+                      alignment: Alignment.centerLeft,
+                      height: 40,
+                      child: DropdownButton(
+                        hint: Text(
+                          'Please select the Quantity',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
+                        value: selectedquantity,
+                        onChanged: (newValue) {
+                          setState(() {
+                            selectedquantity = newValue;
+                            print(selectedquantity);
+                          });
+                        },
+                        items: quantitylist.map((selectedquantity) {
+                          return DropdownMenuItem(
+                            child: new Text(selectedquantity,
+                                style: TextStyle(color: Colors.black)),
+                            value: selectedquantity,
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ),
-          ),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Icon(FontAwesomeIcons.drumstickBite,
-                        color: Colors.orange[700]),
-                  ),
-                  Text("Meat"),
-                  Expanded(child: Text("234 cal", textAlign: TextAlign.end)),
-                ],
-              ),
-            ),
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  width: 1,
-                  color: Colors.grey[300],
+                SizedBox(
+                  height: 10,
                 ),
-              ),
+                MaterialButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
+                    minWidth: 300,
+                    height: 40,
+                    child: Text('Add Food'),
+                    color: Colors.black87,
+                    textColor: Colors.white,
+                    elevation: 15,
+                    onPressed: () => {
+                          _saveuserdailydata(),
+                        }),
+              ],
             ),
-          ),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Icon(FontAwesomeIcons.candyCane, color: Colors.pink),
-                  ),
-                  Text("Other"),
-                  Expanded(child: Text("574 cal", textAlign: TextAlign.end)),
-                ],
-              ),
-            ),
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  width: 1,
-                  color: Colors.grey[300],
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 15),
-          Container(
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  width: 1,
-                  color: Colors.grey[300],
-                ),
-              ),
+            borderRadius: 10,
+            padding: const EdgeInsets.all(10),
+            margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+            backgroundColor: Colors.white,
+            boxShadow: BoxShadow(
+              color: Colors.grey[400],
+              blurRadius: 3.0,
+              offset: Offset(1, 1),
             ),
           )
-        ],
-      ),
-      backgroundColor: Colors.white,
-      boxShadow: BoxShadow(
-        color: Colors.grey[400],
-        blurRadius: 3.0,
-        offset: Offset(1, 1),
+        ]),
       ),
     );
   }
-}
 
-/// Calorie per day graph
-
-class KcalGraph extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return FancyCard(
-      child: Column(
-        children: <Widget>[
-          Container(
-              child: Padding(
-            padding: const EdgeInsets.all(0),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderSide: new BorderSide(color: Colors.teal)),
-                  labelText: 'Plese Enter The Food Name',
-                  labelStyle: TextStyle(color: Colors.black),
-                  icon: Icon(Icons.food_bank)),
-            ),
-          )),
-          SizedBox(
-            height: 10,
-          ),
-          MaterialButton(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0)),
-            minWidth: 300,
-            height: 50,
-            child: Text('Add Food'),
-            color: Colors.black87,
-            textColor: Colors.white,
-            elevation: 15,
-            onPressed: () => {
-              Toast.show(
-                " Success Add",
-                context,
-                duration: Toast.LENGTH_LONG,
-                gravity: Toast.BOTTOM,
-              )
-            },
-          ),
-        ],
-      ),
-      borderRadius: 10,
-      padding: const EdgeInsets.all(20),
-      backgroundColor: Colors.white,
-      boxShadow: BoxShadow(
-        color: Colors.grey[400],
-        blurRadius: 3.0,
-        offset: Offset(1, 1),
-      ),
-    );
+  void _loadmeal() async {
+    http.post("http://triold.com/dietdiary/php/load_mealsplan.php",
+        body: {"email": widget.user.email}).then((res) {
+      print(res.body);
+      if (res.body == "nodata") {
+        meallist = null;
+        setState(() {
+          print('failed');
+        });
+      } else { _loaduserdailydata() ;
+        setState(() {
+          var jsondata = json.decode(res.body);
+          meallist = jsondata["meal"];
+          for (int i = 0; i < meallist.length; i++) {
+            totalsuggestioncal =
+                totalsuggestioncal + double.parse(meallist[i]['calorie']);
+          }
+        }); 
+      }
+    }).catchError((err) {
+      print(err);
+    });
   }
-  
+
+  void _loaduserdailydata() async {
+    http.post("http://triold.com/dietdiary/php/load_userdailydata.php",
+        body: {"email": widget.user.email}).then((res) {
+      print(res.body);
+      if (res.body == "nodata") {
+        userdailydatalist = null;
+        setState(() {
+          print('failed');
+        });
+      } else {
+        setState(() {
+          var jsondata = json.decode(res.body);
+          userdailydatalist = jsondata["userdata"];
+          k = userdailydatalist.length;
+          for (i = 0; i < userdailydatalist.length; i++) {
+            usercal = double.parse(userdailydatalist[i]['calorie'])*double.parse(userdailydatalist[i]['quantity']) + usercal;
+            calleft = totalsuggestioncal - usercal ;    
+          }
+        });
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  void _saveuserdailydata() async {
+    http.post("http://triold.com/dietdiary/php/save_userdailydata.php", body: {
+      "email": widget.user.email,
+      "foodname": selectedfood,
+      "quantity": selectedquantity,
+    }).then((res) {
+      if (res.body == "success") {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    MonitorScreen(user: widget.user)));
+        Toast.show("Process Success", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
+      } else {
+        Toast.show("Process Failed", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
 }
 
-class FancyCard extends StatelessWidget {
+class FancyCard extends StatefulWidget {
   final Widget child;
   final EdgeInsets margin;
   final EdgeInsets padding;
@@ -355,22 +423,27 @@ class FancyCard extends StatelessWidget {
     this.height,
   });
 
+  @override
+  _FancyCardState createState() => _FancyCardState();
+}
+
+class _FancyCardState extends State<FancyCard> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
-          this.boxShadow,
+          this.widget.boxShadow,
         ],
-        borderRadius: BorderRadius.circular(this.borderRadius),
-        gradient: this.gradient,
-        color: this.backgroundColor,
+        borderRadius: BorderRadius.circular(this.widget.borderRadius),
+        gradient: this.widget.gradient,
+        color: this.widget.backgroundColor,
       ),
-      margin: this.margin,
+      margin: this.widget.margin,
       child: Padding(
-        padding: this.padding,
-        child: this.child,
+        padding: this.widget.padding,
+        child: this.widget.child,
       ),
-      height: height,
+      height: widget.height,
     );
   }
 }

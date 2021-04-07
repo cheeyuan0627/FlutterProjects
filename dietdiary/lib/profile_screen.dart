@@ -131,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (buildContextcontext) =>
-                                        MonitorScreen()));
+                                        MonitorScreen(  user: widget.user)));
                           },
                         ),
                       ])),
