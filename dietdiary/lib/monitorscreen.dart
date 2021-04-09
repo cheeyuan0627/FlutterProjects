@@ -29,7 +29,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
     "Vegetable",
   ];
 
-  String selectedfood;
+  String selectedfood = "Meal";
 
   List<String> quantitylist = [
     "1",
@@ -42,14 +42,14 @@ class _MonitorScreenState extends State<MonitorScreen> {
     "8",
   ];
 
-  String selectedquantity;
+  String selectedquantity = "1";
 
   List meallist;
   List userdailydatalist;
   double usercal = 0.0;
   double totalsuggestioncal = 0.0;
   double calleft = 0.0;
-  int j;
+  int j = 0;
   int k = 0;
   int i = 0;
 
@@ -136,7 +136,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
                       ),
                     ),
                     Text(
-                      "Cal left ",
+                      "Cal Left/Over",
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -174,13 +174,13 @@ class _MonitorScreenState extends State<MonitorScreen> {
                 for (j = 0; j < k; j++)
                   (Container(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 10),
+                      padding: const EdgeInsets.only(top: 5, bottom: 5),
                       child: Row(
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
-                            child: Icon(FontAwesomeIcons.seedling,
-                                color: Colors.green),
+                            child: Icon(FontAwesomeIcons.circleNotch,
+                                color: Colors.blueAccent),
                           ),
                           Text(userdailydatalist[j]['foodname'],
                               textAlign: TextAlign.start),
@@ -188,7 +188,8 @@ class _MonitorScreenState extends State<MonitorScreen> {
                               child: Text(
                                   userdailydatalist[j]['quantity'] +
                                       ' Qty * ' +
-                                      userdailydatalist[j]['calorie'] +' Cal ',
+                                      userdailydatalist[j]['calorie'] +
+                                      ' Cal ',
                                   textAlign: TextAlign.end)),
                         ],
                       ),
@@ -202,7 +203,27 @@ class _MonitorScreenState extends State<MonitorScreen> {
                       ),
                     ),
                   )),
-                SizedBox(height: 15),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 120,
+                    ),
+                    Text(
+                      'Press Here To Clear All Data',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(FontAwesomeIcons.trash, color: Colors.black,size: 18,),
+                      alignment: Alignment.center,
+                      onPressed: () {
+                        _deletedialog();
+                      },
+                    ),
+                  ],
+                ),
                 Container(
                   decoration: BoxDecoration(
                     border: Border(
@@ -236,13 +257,6 @@ class _MonitorScreenState extends State<MonitorScreen> {
                       alignment: Alignment.centerLeft,
                       height: 40,
                       child: DropdownButton(
-                        hint: Text(
-                          'Please select the Food type',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                          ),
-                        ),
                         value: selectedfood,
                         onChanged: (newValue) {
                           setState(() {
@@ -259,6 +273,13 @@ class _MonitorScreenState extends State<MonitorScreen> {
                         }).toList(),
                       ),
                     ),
+                    Text(
+                      'Select Food Here',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -272,13 +293,6 @@ class _MonitorScreenState extends State<MonitorScreen> {
                       alignment: Alignment.centerLeft,
                       height: 40,
                       child: DropdownButton(
-                        hint: Text(
-                          'Please select the Quantity',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                          ),
-                        ),
                         value: selectedquantity,
                         onChanged: (newValue) {
                           setState(() {
@@ -295,6 +309,16 @@ class _MonitorScreenState extends State<MonitorScreen> {
                         }).toList(),
                       ),
                     ),
+                    SizedBox(
+                      width: 62,
+                    ),
+                    Text(
+                      'Select Quantity Here',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -305,18 +329,43 @@ class _MonitorScreenState extends State<MonitorScreen> {
                         borderRadius: BorderRadius.circular(20.0)),
                     minWidth: 300,
                     height: 40,
-                    child: Text('Add Food'),
-                    color: Colors.black87,
+                    child: Text('Add / Update Food'),
+                    color: Colors.blueAccent[100],
                     textColor: Colors.white,
                     elevation: 15,
-                    onPressed: () => {
-                          _saveuserdailydata(),
-                        }),
+                    onPressed: () => {_savedialog()}),
               ],
             ),
             borderRadius: 10,
             padding: const EdgeInsets.all(10),
             margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+            backgroundColor: Colors.white,
+            boxShadow: BoxShadow(
+              color: Colors.grey[400],
+              blurRadius: 3.0,
+              offset: Offset(1, 1),
+            ),
+          ),
+          FancyCard(
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: [
+                    Text(
+                      'Estimated Calories Based On Food Type Only!',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Icon(FontAwesomeIcons.child, color: Colors.grey),
+                  ],
+                )
+              ],
+            ),
+            borderRadius: 10,
+            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
             backgroundColor: Colors.white,
             boxShadow: BoxShadow(
               color: Colors.grey[400],
@@ -338,7 +387,8 @@ class _MonitorScreenState extends State<MonitorScreen> {
         setState(() {
           print('failed');
         });
-      } else { _loaduserdailydata() ;
+      } else {
+        _loaduserdailydata();
         setState(() {
           var jsondata = json.decode(res.body);
           meallist = jsondata["meal"];
@@ -346,7 +396,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
             totalsuggestioncal =
                 totalsuggestioncal + double.parse(meallist[i]['calorie']);
           }
-        }); 
+        });
       }
     }).catchError((err) {
       print(err);
@@ -368,14 +418,71 @@ class _MonitorScreenState extends State<MonitorScreen> {
           userdailydatalist = jsondata["userdata"];
           k = userdailydatalist.length;
           for (i = 0; i < userdailydatalist.length; i++) {
-            usercal = double.parse(userdailydatalist[i]['calorie'])*double.parse(userdailydatalist[i]['quantity']) + usercal;
-            calleft = totalsuggestioncal - usercal ;    
+            usercal = double.parse(userdailydatalist[i]['calorie']) *
+                    double.parse(userdailydatalist[i]['quantity']) +
+                usercal;
+            calleft = totalsuggestioncal - usercal;
           }
         });
       }
     }).catchError((err) {
       print(err);
     });
+  }
+
+  _savedialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            "Add / Update?",
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          content: new Text(
+            "Are Your Sure? ",
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                "Yes",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              onPressed: () {
+                _saveuserdailydata();
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text(
+                "No",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              onPressed: () {
+                Toast.show(
+                  "Process Cancel",
+                  context,
+                  duration: Toast.LENGTH_LONG,
+                  gravity: Toast.TOP,
+                );
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _saveuserdailydata() async {
@@ -390,11 +497,97 @@ class _MonitorScreenState extends State<MonitorScreen> {
             MaterialPageRoute(
                 builder: (BuildContext context) =>
                     MonitorScreen(user: widget.user)));
-        Toast.show("Process Success", context,
+        Toast.show("Add / Update Success", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
       } else {
         Toast.show("Process Failed", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  _deletedialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            "Clear All Data?",
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          content: new Text(
+            "Are Your Sure? ",
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                "Yes",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              onPressed: () {
+                _deletedata();
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text(
+                "No",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              onPressed: () {
+                Toast.show(
+                  "Process Cancel",
+                  context,
+                  duration: Toast.LENGTH_LONG,
+                  gravity: Toast.TOP,
+                );
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _deletedata() async {
+    http.post("http://triold.com/dietdiary/php/delete_userdailydata.php",
+        body: {
+          "email": widget.user.email,
+        }).then((res) {
+      print(res.body);
+      if (res.body == "success") {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    MonitorScreen(user: widget.user)));
+        Toast.show(
+          "Process Success",
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.TOP,
+        );
+      } else {
+        Toast.show(
+          "Process Failed",
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.TOP,
+        );
       }
     }).catchError((err) {
       print(err);

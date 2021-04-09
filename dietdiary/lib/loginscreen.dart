@@ -1,4 +1,5 @@
 import 'package:dietdiary/profile_screen.dart';
+import 'forgotpass.dart';
 import 'registerscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -118,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     GestureDetector(
                       onTap: _onForgot,
                       child: Text(
-                        'Forgot Account',
+                        'Forgot Password?',
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     )
@@ -189,7 +190,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onForgot() {
-    print('onForgot');
+   Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext context) => ForgorpassScreen()));
   }
 
   void loadpref() async {

@@ -9,6 +9,7 @@ import 'dietchecklistscreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
 import 'package:intl/intl.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfileScreen extends StatefulWidget {
   final User user;
@@ -61,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 50,
                         ),
                         IconButton(
-                          icon: Icon(Icons.calculate),
+                          icon: Icon(FontAwesomeIcons.calculator, color: Colors.black,size: 20,),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -83,7 +84,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 50,
                         ),
                         IconButton(
-                          icon: Icon(Icons.list),
+                          icon: Icon(FontAwesomeIcons.listAlt, color: Colors.black,size: 20,),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -104,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 50,
                         ),
                         IconButton(
-                          icon: Icon(Icons.view_agenda),
+                          icon: Icon(FontAwesomeIcons.starHalfAlt, color: Colors.black,size: 20,),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -125,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 50,
                         ),
                         IconButton(
-                          icon: Icon(Icons.monitor),
+                          icon:Icon(FontAwesomeIcons.chartLine, color: Colors.black,size: 20,),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -278,7 +279,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   ),
                                                 ),
                                                 IconButton(
-                                                  icon: Icon(Icons.logout),
+                                                  icon: Icon(FontAwesomeIcons.signOutAlt, color: Colors.black,size: 20,),
                                                   padding: EdgeInsets.fromLTRB(
                                                       0, 0, 0, 0),
                                                   onPressed: () => _logout(),
