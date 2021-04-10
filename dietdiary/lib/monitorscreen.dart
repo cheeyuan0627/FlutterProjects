@@ -23,13 +23,14 @@ class _MonitorScreenState extends State<MonitorScreen> {
   }
 
   List<String> foodlist = [
-    "Meal",
-    "Bread",
-    "Fruit",
-    "Vegetable",
+    "Cereals",
+    "Meat, Fish, Eggs & Substitutes",
+    "Fruits",
+    "Vegetables",
+    "Milk & Substitutes",
   ];
 
-  String selectedfood = "Meal";
+  String selectedfood = "Cereals";
 
   List<String> quantitylist = [
     "1",
@@ -159,7 +160,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
                     children: <Widget>[
                       Expanded(
                           child: Text(
-                        "Calories by food:",
+                        "Calories By Food:",
                         textAlign: TextAlign.start,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       )),
@@ -206,13 +207,13 @@ class _MonitorScreenState extends State<MonitorScreen> {
                 Row(
                   children: [
                     SizedBox(
-                      width: 120,
+                      width: 145,
                     ),
                     Text(
                       'Press Here To Clear All Data',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 16,
+                        fontSize: 14,
                       ),
                     ),
                     IconButton(
@@ -248,7 +249,13 @@ class _MonitorScreenState extends State<MonitorScreen> {
               children: <Widget>[
                 Row(
                   children: [
-                    Icon(Icons.food_bank),
+                    Icon(Icons.food_bank),SizedBox(width: 10,), Text(
+                      'Food',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                      ),
+                    ),
                     SizedBox(
                       width: 30,
                     ),
@@ -273,20 +280,20 @@ class _MonitorScreenState extends State<MonitorScreen> {
                         }).toList(),
                       ),
                     ),
-                    Text(
-                      'Select Food Here',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                      ),
-                    ),
+                   
                   ],
                 ),
                 Row(
                   children: [
-                    Icon(Icons.format_list_numbered_rtl),
+                    Icon(Icons.format_list_numbered_rtl),SizedBox(width: 10,), Text(
+                      'Quantity',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                      ),
+                    ),
                     SizedBox(
-                      width: 30,
+                      width: 10,
                     ),
                     Container(
                       padding: EdgeInsets.fromLTRB(10, 10, 20, 0),
@@ -312,13 +319,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
                     SizedBox(
                       width: 62,
                     ),
-                    Text(
-                      'Select Quantity Here',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                      ),
-                    ),
+                  
                   ],
                 ),
                 SizedBox(
@@ -338,7 +339,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
             ),
             borderRadius: 10,
             padding: const EdgeInsets.all(10),
-            margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+            margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
             backgroundColor: Colors.white,
             boxShadow: BoxShadow(
               color: Colors.grey[400],
@@ -386,6 +387,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
         meallist = null;
         setState(() {
           print('failed');
+          _loaduserdailydata();
         });
       } else {
         _loaduserdailydata();
