@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dietdiary/boucingbuttonscreen.dart';
 import 'package:dietdiary/dietplandetailscreen.dart';
 import 'package:dietdiary/loginscreen.dart';
 import 'package:dietdiary/monitorscreen.dart';
@@ -62,7 +63,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 50,
                         ),
                         IconButton(
-                          icon: Icon(FontAwesomeIcons.calculator, color: Colors.black,size: 20,),
+                          icon: Icon(
+                            FontAwesomeIcons.calculator,
+                            color: Colors.black,
+                            size: 20,
+                          ),
+                          tooltip: 'Calculate BMI',
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -84,7 +90,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 50,
                         ),
                         IconButton(
-                          icon: Icon(FontAwesomeIcons.listAlt, color: Colors.black,size: 20,),
+                          icon: Icon(
+                            FontAwesomeIcons.listAlt,
+                            color: Colors.black,
+                            size: 20,
+                          ),
+                          tooltip: 'Food List',
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -105,7 +116,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 50,
                         ),
                         IconButton(
-                          icon: Icon(FontAwesomeIcons.starHalfAlt, color: Colors.black,size: 20,),
+                          icon: Icon(
+                            FontAwesomeIcons.starHalfAlt,
+                            color: Colors.black,
+                            size: 20,
+                          ),
+                          tooltip: 'Manage Food',
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -126,13 +142,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 50,
                         ),
                         IconButton(
-                          icon:Icon(FontAwesomeIcons.chartLine, color: Colors.black,size: 20,),
+                          icon: Icon(
+                            FontAwesomeIcons.chartLine,
+                            color: Colors.black,
+                            size: 20,
+                          ),
+                          tooltip: 'Cal Monitor',
                           onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (buildContextcontext) =>
-                                        MonitorScreen(  user: widget.user)));
+                                        MonitorScreen(user: widget.user)));
                           },
                         ),
                       ])),
@@ -140,16 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: Column(children: [
           bmiinfolist == null
               ? Flexible(
-                  child: Container(
-                      child: Center(
-                          child: Text(
-                  ' Loading Data',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ))))
+                  child: BouncingButtonScreen(user: widget.user))
               : Flexible(
                   child: Stack(
                   children: List.generate(bmiinfolist.length, (index) {
@@ -279,7 +291,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   ),
                                                 ),
                                                 IconButton(
-                                                  icon: Icon(FontAwesomeIcons.signOutAlt, color: Colors.black,size: 20,),
+                                                  icon: Icon(
+                                                    FontAwesomeIcons.signOutAlt,
+                                                    color: Colors.black,
+                                                    size: 20,
+                                                  ),
                                                   padding: EdgeInsets.fromLTRB(
                                                       0, 0, 0, 0),
                                                   onPressed: () => _logout(),
@@ -733,7 +749,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  void _loadbmi() {
+  void _loadbmi() async{
     http.post("http://triold.com/dietdiary/php/load_bmi_info.php", body: {
       "email": widget.user.email,
     }).then((res) {
@@ -754,7 +770,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  void _loadmealbreakfast() {
+  void _loadmealbreakfast() async{
     http.post("http://triold.com/dietdiary/php/load_mealsplanbreakfast.php",
         body: {"email": widget.user.email, "cycle": "Breakfast"}).then((res) {
       print(res.body);
@@ -774,7 +790,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  void _loadmeallunch() {
+  void _loadmeallunch() async{
     http.post("http://triold.com/dietdiary/php/load_mealsplanlunch.php",
         body: {"email": widget.user.email, "cycle": "Lunch"}).then((res) {
       print(res.body);
@@ -794,7 +810,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  void _loadmealdinner() {
+  void _loadmealdinner() async{
     http.post("http://triold.com/dietdiary/php/load_mealsplandinner.php",
         body: {"email": widget.user.email, "cycle": "Dinner"}).then((res) {
       print(res.body);

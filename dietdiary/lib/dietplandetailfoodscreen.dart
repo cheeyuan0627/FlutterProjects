@@ -53,16 +53,73 @@ class _DietplandetailbreakfastScreenState
             children: [
               mealbreakfastlist == null
                   ? Flexible(
-                      child: Container(
-                          child: Center(
-                              child: Text(
-                      'LOADING BREAKFAST LIST ',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ))))
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FancyCard(
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 100,
+                                    ),
+                                    Text(
+                                      'Loading Breakfast Data..',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            borderRadius: 10,
+                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                            backgroundColor: Colors.blueGrey[50],
+                            boxShadow: BoxShadow(
+                              color: Colors.grey[400],
+                              blurRadius: 3.0,
+                              offset: Offset(1, 1),
+                            ),
+                          ),
+                          FancyCard(
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 0,
+                                    ),
+                                    Text(
+                                      'Please Make Sure U Add Breakfast To Continue',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            borderRadius: 10,
+                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                            backgroundColor: Colors.blueGrey[50],
+                            boxShadow: BoxShadow(
+                              color: Colors.grey[400],
+                              blurRadius: 3.0,
+                              offset: Offset(1, 1),
+                            ),
+                          )
+                        ],
+                      ),)
                   : Flexible(
                       child: SingleChildScrollView(
                           child: Column(
@@ -302,16 +359,73 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
             children: [
               meallunchlist == null
                   ? Flexible(
-                      child: Container(
-                          child: Center(
-                              child: Text(
-                      'LOADING LUNCH LIST ',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ))))
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FancyCard(
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 100,
+                                    ),
+                                    Text(
+                                      'Loading Lunch Data..',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            borderRadius: 10,
+                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                            backgroundColor: Colors.blueGrey[50],
+                            boxShadow: BoxShadow(
+                              color: Colors.grey[400],
+                              blurRadius: 3.0,
+                              offset: Offset(1, 1),
+                            ),
+                          ),
+                          FancyCard(
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 0,
+                                    ),
+                                    Text(
+                                      'Please Make Sure U Add Lunch To Continue',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            borderRadius: 10,
+                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                            backgroundColor: Colors.blueGrey[50],
+                            boxShadow: BoxShadow(
+                              color: Colors.grey[400],
+                              blurRadius: 3.0,
+                              offset: Offset(1, 1),
+                            ),
+                          )
+                        ],
+                      ),)
                   : Flexible(
                       child: SingleChildScrollView(
                           child: Column(
@@ -551,16 +665,73 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
             children: [
               mealdinnerlist == null
                   ? Flexible(
-                      child: Container(
-                          child: Center(
-                              child: Text(
-                      'LOADING DINNER LIST ',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ))))
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FancyCard(
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 100,
+                                    ),
+                                    Text(
+                                      'Loading Dinner Data..',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            borderRadius: 10,
+                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                            backgroundColor: Colors.blueGrey[50],
+                            boxShadow: BoxShadow(
+                              color: Colors.grey[400],
+                              blurRadius: 3.0,
+                              offset: Offset(1, 1),
+                            ),
+                          ),
+                          FancyCard(
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 0,
+                                    ),
+                                    Text(
+                                      'Please Make Sure U Add Dinner To Continue',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            borderRadius: 10,
+                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                            backgroundColor: Colors.blueGrey[50],
+                            boxShadow: BoxShadow(
+                              color: Colors.grey[400],
+                              blurRadius: 3.0,
+                              offset: Offset(1, 1),
+                            ),
+                          )
+                        ],
+                      ),)
                   : Flexible(
                       child: SingleChildScrollView(
                           child: Column(
@@ -754,3 +925,50 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
     });
   }
 }
+
+class FancyCard extends StatefulWidget {
+  final Widget child;
+  final EdgeInsets margin;
+  final EdgeInsets padding;
+  final double borderRadius;
+  final Color backgroundColor;
+  final Gradient gradient;
+  final BoxShadow boxShadow;
+  final double height;
+
+  FancyCard({
+    @required this.child,
+    @required this.padding,
+    @required this.borderRadius,
+    this.boxShadow,
+    this.backgroundColor,
+    this.gradient,
+    this.margin,
+    this.height,
+  });
+
+  @override
+  _FancyCardState createState() => _FancyCardState();
+}
+
+class _FancyCardState extends State<FancyCard> {
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          this.widget.boxShadow,
+        ],
+        borderRadius: BorderRadius.circular(this.widget.borderRadius),
+        gradient: this.widget.gradient,
+        color: this.widget.backgroundColor,
+      ),
+      margin: this.widget.margin,
+      child: Padding(
+        padding: this.widget.padding,
+        child: this.widget.child,
+      ),
+      height: widget.height,
+    );
+  }
+}
+

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dietdiary/monitorscreen.dart';
 import 'package:dietdiary/user.dart';
 import 'package:flutter/material.dart';
 import 'dietplandetailfoodscreen.dart';
@@ -19,16 +20,16 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
   List mealbreakfastlist;
   List meallunchlist;
   List mealdinnerlist;
-  double totalcal= 0.0, breaskfastcal= 0.0,lunchcal= 0.0,dinnercal= 0.0;
-  int totalfood=0, totalbreakfast= 0, totallunch=0, totaldinner=0;
+  double totalcal = 0.0, breaskfastcal = 0.0, lunchcal = 0.0, dinnercal = 0.0;
+  int totalfood = 0, totalbreakfast = 0, totallunch = 0, totaldinner = 0;
 
   @override
   void initState() {
     super.initState();
     _loadmeal();
     _loadmealbreakfast();
-    _loadmeallunch() ;
-     _loadmealdinner() ;
+    _loadmeallunch();
+    _loadmealdinner();
   }
 
   @override
@@ -48,9 +49,29 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => ProfileScreen(user: widget.user)));
+                      builder: (BuildContext context) =>
+                          ProfileScreen(user: widget.user)));
             },
           ),
+          actions: <Widget>[
+            Container(
+              child: IconButton(
+                icon: Icon(Icons.monitor),
+                iconSize: 24,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (buildContextcontext) => MonitorScreen(
+                                user: widget.user,
+                              )));
+                },
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            )
+          ],
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
@@ -84,13 +105,19 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
                                   ],
                                 ),
                                 SizedBox(height: 10),
-                                Text(
-                                  'Total Food: ' + totalfood.toString(),
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Total Food: ' + totalfood.toString(),
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(height: 10),
+                                SizedBox(
+                                  height: 10,
+                                )
                               ],
                             ),
                             SizedBox(
@@ -109,7 +136,7 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              DietplanbreakfastScreen( user: widget.user))),
+                              DietplanbreakfastScreen(user: widget.user))),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -131,14 +158,17 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
                                 ),
                                 SizedBox(height: 10),
                                 Text(
-                                  'Total Food: '+totalbreakfast.toStringAsFixed(0),
+                                  'Total Food: ' +
+                                      totalbreakfast.toStringAsFixed(0),
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 10),
                                 Text(
-                                  'Total Calories: '+breaskfastcal.toStringAsFixed(0)+' Cal',
+                                  'Total Calories: ' +
+                                      breaskfastcal.toStringAsFixed(0) +
+                                      ' Cal',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
@@ -184,14 +214,17 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
                                 ),
                                 SizedBox(height: 10),
                                 Text(
-                                  'Total Food: '+totallunch.toStringAsFixed(0),
+                                  'Total Food: ' +
+                                      totallunch.toStringAsFixed(0),
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 10),
                                 Text(
-                                 'Total Calories: '+lunchcal.toStringAsFixed(0)+' Cal',
+                                  'Total Calories: ' +
+                                      lunchcal.toStringAsFixed(0) +
+                                      ' Cal',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
@@ -237,14 +270,17 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
                                 ),
                                 SizedBox(height: 10),
                                 Text(
-                                  'Total Food: '+totaldinner.toStringAsFixed(0),
+                                  'Total Food: ' +
+                                      totaldinner.toStringAsFixed(0),
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 10),
                                 Text(
-                                  'Total Calories: '+dinnercal.toStringAsFixed(0)+' Cal',
+                                  'Total Calories: ' +
+                                      dinnercal.toStringAsFixed(0) +
+                                      ' Cal',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
@@ -293,11 +329,9 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
     });
   }
 
-    void _loadmealbreakfast() {
-    http.post("http://triold.com/dietdiary/php/load_mealsplanbreakfast.php", body: {
-     "email": widget.user.email,
-      "cycle": "Breakfast"
-    }).then((res) {
+  void _loadmealbreakfast() {
+    http.post("http://triold.com/dietdiary/php/load_mealsplanbreakfast.php",
+        body: {"email": widget.user.email, "cycle": "Breakfast"}).then((res) {
       print(res.body);
       if (res.body == "nodata") {
         mealbreakfastlist = null;
@@ -308,8 +342,9 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
         setState(() {
           var jsondata = json.decode(res.body);
           mealbreakfastlist = jsondata["mealbreakfast"];
-            for (int i = 0; i < mealbreakfastlist.length; i++) {
-            breaskfastcal = breaskfastcal + double.parse(mealbreakfastlist[i]['calorie']);
+          for (int i = 0; i < mealbreakfastlist.length; i++) {
+            breaskfastcal =
+                breaskfastcal + double.parse(mealbreakfastlist[i]['calorie']);
             totalbreakfast = mealbreakfastlist.length;
           }
         });
@@ -320,10 +355,8 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
   }
 
   void _loadmeallunch() {
-    http.post("http://triold.com/dietdiary/php/load_mealsplanlunch.php", body: {
-     "email": widget.user.email,
-      "cycle": "Lunch"
-    }).then((res) {
+    http.post("http://triold.com/dietdiary/php/load_mealsplanlunch.php",
+        body: {"email": widget.user.email, "cycle": "Lunch"}).then((res) {
       print(res.body);
       if (res.body == "nodata") {
         meallunchlist = null;
@@ -334,7 +367,7 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
         setState(() {
           var jsondata = json.decode(res.body);
           meallunchlist = jsondata["meallunch"];
-            for (int i = 0; i < meallunchlist.length; i++) {
+          for (int i = 0; i < meallunchlist.length; i++) {
             lunchcal = lunchcal + double.parse(meallunchlist[i]['calorie']);
             totallunch = meallunchlist.length;
           }
@@ -345,11 +378,9 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
     });
   }
 
-   void _loadmealdinner() {
-    http.post("http://triold.com/dietdiary/php/load_mealsplandinner.php", body: {
-     "email": widget.user.email,
-      "cycle": "Dinner"
-    }).then((res) {
+  void _loadmealdinner() {
+    http.post("http://triold.com/dietdiary/php/load_mealsplandinner.php",
+        body: {"email": widget.user.email, "cycle": "Dinner"}).then((res) {
       print(res.body);
       if (res.body == "nodata") {
         mealdinnerlist = null;
@@ -360,7 +391,7 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
         setState(() {
           var jsondata = json.decode(res.body);
           mealdinnerlist = jsondata["mealdinner"];
-            for (int i = 0; i < mealdinnerlist.length; i++) {
+          for (int i = 0; i < mealdinnerlist.length; i++) {
             dinnercal = lunchcal + double.parse(mealdinnerlist[i]['calorie']);
             totaldinner = mealdinnerlist.length;
           }
@@ -370,5 +401,5 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
       print(err);
     });
   }
-   
 }
+

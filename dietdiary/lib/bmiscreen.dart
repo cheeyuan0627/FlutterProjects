@@ -1,3 +1,4 @@
+import 'package:dietdiary/dietchecklistscreen.dart';
 import 'package:dietdiary/profile_screen.dart';
 import 'package:dietdiary/user.dart';
 import 'package:flutter/material.dart';
@@ -81,6 +82,26 @@ class ResultScreen extends StatelessWidget {
                 color: Colors.white,
               ),
               label: Text("LET CALCULATE AGAIN / GO BACK"),
+              textColor: Colors.white,
+              color: Colors.blue,
+            ),
+            width: double.infinity,
+            padding: EdgeInsets.only(left: 16, right: 16),
+          ),
+             Container(
+            child: FlatButton.icon(
+              onPressed: () {
+              Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    DietchecklistScreen(user: user)));
+              },
+              icon: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white,
+              ),
+              label: Text("CONTINUE TO DIET FOODLIST"),
               textColor: Colors.white,
               color: Colors.blue,
             ),
