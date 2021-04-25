@@ -134,7 +134,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                     controller: _pscontroller,
                     keyboardType: TextInputType.visiblePassword,
                     decoration: InputDecoration(
-                        labelText: 'password',
+                        labelText: 'Password',
                         labelStyle: TextStyle(color: Colors.black),
                         icon: Icon(Icons.lock),
                         suffixIcon: IconButton(
@@ -241,7 +241,7 @@ class _RegisterscreenState extends State<Registerscreen> {
               "password": _pass,
             }).then((res) {
           if (res.body == "success") {
-            Toast.show("Registration success", context,
+            Toast.show("Registration Success, Please Check Email", context,
                 duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
             setState(() {
               _nmcontroller.text = '';

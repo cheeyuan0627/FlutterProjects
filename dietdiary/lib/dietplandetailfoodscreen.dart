@@ -62,7 +62,7 @@ class _DietplandetailbreakfastScreenState
                                 Row(
                                   children: [
                                     SizedBox(
-                                      width: 100,
+                                      width: 90,
                                     ),
                                     Text(
                                       'Loading Breakfast Data..',
