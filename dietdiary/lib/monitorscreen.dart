@@ -24,7 +24,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
 
   List<String> foodlist = [
     "Cereals",
-    "Meat, Fish, Eggs & Substitutes",
+    "Meat, Fish, Eggs",
     "Fruits",
     "Vegetables",
     "Milk & Substitutes",
@@ -102,7 +102,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
                       ),
                     ),
                     Text(
-                      "Suggestion cal",
+                      "Suggest's cal",
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -213,9 +213,6 @@ class _MonitorScreenState extends State<MonitorScreen> {
                   )),
                 Row(
                   children: [
-                    SizedBox(
-                      width: screenWidth * 0.30,
-                    ),
                     Text(
                       'Press Here To Clear All Data',
                       style: TextStyle(
@@ -224,13 +221,13 @@ class _MonitorScreenState extends State<MonitorScreen> {
                       ),
                     ),
                     SizedBox(
-                      width: screenWidth * 0.02,
+                      width: 10,
                     ),
                     IconButton(
                       icon: Icon(
                         FontAwesomeIcons.trash,
                         color: Colors.black,
-                        size: 17,
+                        size: 16,
                       ),
                       alignment: Alignment.center,
                       onPressed: () {
@@ -278,26 +275,27 @@ class _MonitorScreenState extends State<MonitorScreen> {
                       width: 30,
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                      alignment: Alignment.centerLeft,
-                      height: 40,
-                      child: DropdownButton(
-                        value: selectedfood,
-                        onChanged: (newValue) {
-                          setState(() {
-                            selectedfood = newValue;
-                            print(selectedfood);
-                          });
-                        },
-                        items: foodlist.map((selectedtype) {
-                          return DropdownMenuItem(
-                            child: new Text(selectedtype,
-                                style: TextStyle(color: Colors.black)),
-                            value: selectedtype,
-                          );
-                        }).toList(),
-                      ),
-                    ),
+                        padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
+                        alignment: Alignment.centerLeft,
+                        height: 40,
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            value: selectedfood,
+                            onChanged: (newValue) {
+                              setState(() {
+                                selectedfood = newValue;
+                                print(selectedfood);
+                              });
+                            },
+                            items: foodlist.map((selectedtype) {
+                              return DropdownMenuItem(
+                                child: new Text(selectedtype,
+                                    style: TextStyle(color: Colors.black)),
+                                value: selectedtype,
+                              );
+                            }).toList(),
+                          ),
+                        )),
                   ],
                 ),
                 Row(
@@ -317,26 +315,27 @@ class _MonitorScreenState extends State<MonitorScreen> {
                       width: 10,
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(10, 10, 20, 0),
-                      alignment: Alignment.centerLeft,
-                      height: 40,
-                      child: DropdownButton(
-                        value: selectedquantity,
-                        onChanged: (newValue) {
-                          setState(() {
-                            selectedquantity = newValue;
-                            print(selectedquantity);
-                          });
-                        },
-                        items: quantitylist.map((selectedquantity) {
-                          return DropdownMenuItem(
-                            child: new Text(selectedquantity,
-                                style: TextStyle(color: Colors.black)),
+                        padding: EdgeInsets.fromLTRB(10, 10, 20, 0),
+                        alignment: Alignment.centerLeft,
+                        height: 40,
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
                             value: selectedquantity,
-                          );
-                        }).toList(),
-                      ),
-                    ),
+                            onChanged: (newValue) {
+                              setState(() {
+                                selectedquantity = newValue;
+                                print(selectedquantity);
+                              });
+                            },
+                            items: quantitylist.map((selectedquantity) {
+                              return DropdownMenuItem(
+                                child: new Text(selectedquantity,
+                                    style: TextStyle(color: Colors.black)),
+                                value: selectedquantity,
+                              );
+                            }).toList(),
+                          ),
+                        )),
                     SizedBox(
                       width: 62,
                     ),
@@ -367,36 +366,25 @@ class _MonitorScreenState extends State<MonitorScreen> {
               offset: Offset(1, 1),
             ),
           ),
-          FancyCard(
-            child: Column(
-              children: <Widget>[
-                Row(
-                  children: [
-                    SizedBox(
-                      width: screenWidth * 0.05,
-                    ),
-                    Text(
-                      'Estimated Calories Based On Food Type Only!',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Icon(FontAwesomeIcons.child, color: Colors.grey),
-                  ],
-                )
-              ],
+          Container(
+            margin: EdgeInsets.fromLTRB(5, 5, 5, 10),
+            child: Card(
+              color: Colors.white,
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    title: Text('Estimated Calories Based On Food Type!',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center),
+                  ),
+                ],
+              ),
             ),
-            borderRadius: 10,
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-            backgroundColor: Colors.white,
-            boxShadow: BoxShadow(
-              color: Colors.grey[400],
-              blurRadius: 3.0,
-              offset: Offset(1, 1),
-            ),
-          )
+          ),
         ]),
       ),
     );

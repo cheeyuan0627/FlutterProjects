@@ -55,32 +55,26 @@ class _ForgorpassState extends State<ForgorpassScreen> {
                     SizedBox(
                       height: 100,
                     ),
-                    FancyCard(
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: screenWidth * 0.09,
+                     Container(
+                            margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
+                            child: Card(
+                              color: Colors.white,
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              Text(
-                                'Please Enter U Email To Reset Password',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text('Please Enter U Email To Reset',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ],
                               ),
-                            ],
-                          )
-                        ],
-                      ),
-                      borderRadius: 10,
-                      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                      backgroundColor: Colors.white,
-                      boxShadow: BoxShadow(
-                        color: Colors.grey[400],
-                        blurRadius: 3.0,
-                        offset: Offset(1, 1),
-                      ),
-                    ),
+                            ),
+                          ),
                     Padding(
                       padding: const EdgeInsets.only(
                           bottom: 10, left: 20, right: 20),
@@ -219,48 +213,3 @@ class _ForgorpassState extends State<ForgorpassScreen> {
   }
 }
 
-class FancyCard extends StatefulWidget {
-  final Widget child;
-  final EdgeInsets margin;
-  final EdgeInsets padding;
-  final double borderRadius;
-  final Color backgroundColor;
-  final Gradient gradient;
-  final BoxShadow boxShadow;
-  final double height;
-
-  FancyCard({
-    @required this.child,
-    @required this.padding,
-    @required this.borderRadius,
-    this.boxShadow,
-    this.backgroundColor,
-    this.gradient,
-    this.margin,
-    this.height,
-  });
-
-  @override
-  _FancyCardState createState() => _FancyCardState();
-}
-
-class _FancyCardState extends State<FancyCard> {
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          this.widget.boxShadow,
-        ],
-        borderRadius: BorderRadius.circular(this.widget.borderRadius),
-        gradient: this.widget.gradient,
-        color: this.widget.backgroundColor,
-      ),
-      margin: this.widget.margin,
-      child: Padding(
-        padding: this.widget.padding,
-        child: this.widget.child,
-      ),
-      height: widget.height,
-    );
-  }
-}

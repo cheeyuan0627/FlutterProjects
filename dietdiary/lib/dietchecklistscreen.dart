@@ -57,68 +57,47 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          FancyCard(
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: screenWidth * 0.23,
-                                    ),
-                                    Text(
-                                      'Loading Food Data..',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15),
-                                    ),
-                                    SizedBox(
-                                      width: screenWidth * 0.02,
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                            borderRadius: 10,
-                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            backgroundColor: Colors.blueGrey[50],
-                            boxShadow: BoxShadow(
-                              color: Colors.grey[400],
-                              blurRadius: 3.0,
-                              offset: Offset(1, 1),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(5, 5, 5, 10),
+                            child: Card(
+                              color: Colors.blueGrey[50],
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text('Loading Food Data ...',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          FancyCard(
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: screenWidth * 0.02,
-                                    ),
-                                    Text(
-                                      'Please Make Sure U Calculate BMI To Continue',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15),
-                                    ),
-                                    SizedBox(
-                                      width: screenWidth * 0.01,
-                                    ),
-                                  ],
-                                )
-                              ],
+                          Container(
+                            margin: EdgeInsets.fromLTRB(5, 5, 5, 10),
+                            child: Card(
+                              color: Colors.blueGrey[50],
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text(
+                                        'Please Calculate BMI To Continue',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ],
+                              ),
                             ),
-                            borderRadius: 10,
-                            padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            backgroundColor: Colors.blueGrey[50],
-                            boxShadow: BoxShadow(
-                              color: Colors.grey[400],
-                              blurRadius: 3.0,
-                              offset: Offset(1, 1),
-                            ),
-                          )
+                          ),
                         ],
                       ),
                     )
@@ -131,46 +110,41 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                             children: [
                               Row(
                                 children: [
+                                  SizedBox(width: 5),
                                   Icon(
                                     Icons.update,
                                     size: 18,
                                   ),
-                                  SizedBox(width: 5),
-                                  Text(
+                                  SizedBox(width: 5),Expanded(child: Text(
                                     'BMI: ' +
                                         double.parse(bmiinfolist[index]['bmi'])
                                             .toStringAsFixed(0),
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 17,
                                       color: Colors.black,
                                     ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.face, size: 18),
-                                      SizedBox(width: 5),
-                                      Text(
-                                        'Status: ' + bmiinfolist[index]['type'],
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  ),),
+                                  
+                                 Expanded(child: Text(
+                                    "Long Press To Add Food",
+                                    style: TextStyle(
+                                      fontSize: 14,fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),),
+                             
                                 ],
                               ),
                               Container(
                                 width: 30,
-                                height: 15,
+                                height: 10,
                               ),
                               Row(
-                                children: <Widget>[
+                                children: <Widget>[SizedBox(width: 5),
                                   Text(
                                     "BREASKFAST",
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 17,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -180,7 +154,8 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                   Icon(
                                     Icons.breakfast_dining,
                                     size: 18,
-                                  )
+                                  ),  
+                                 
                                 ],
                               ),
                               SizedBox(
@@ -205,7 +180,7 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                             breakfastlist.length, (index) {
                                           return Padding(
                                             padding: EdgeInsets.fromLTRB(
-                                                10, 0, 10, 0),
+                                                0, 0, 0, 0),
                                             child: Column(
                                               children: [
                                                 SingleChildScrollView(
@@ -327,14 +302,15 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                     ),
                               Container(
                                 width: 30,
-                                height: 15,
+                                height: 10,
                               ),
                               Row(
                                 children: <Widget>[
+                                  SizedBox(width: 5),
                                   Text(
                                     "LUNCH",
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 17,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -369,10 +345,10 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                             lunchlist.length, (index) {
                                           return Padding(
                                             padding: EdgeInsets.fromLTRB(
-                                                10, 0, 10, 0),
+                                                0, 0, 0, 0),
                                             child: Column(
                                               children: [
-                                                SizedBox(height: 5),
+                                              
                                                 SingleChildScrollView(
                                                     child: Card(
                                                   elevation: 5,
@@ -491,14 +467,15 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                     ),
                               Container(
                                 width: 30,
-                                height: 15,
+                                height: 10,
                               ),
                               Row(
                                 children: <Widget>[
+                                  SizedBox(width: 5),
                                   Text(
                                     "DINNER",
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 17,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -533,10 +510,10 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                             dinnerlist.length, (index) {
                                           return Padding(
                                             padding: EdgeInsets.fromLTRB(
-                                                10, 0, 10, 0),
+                                                0, 0, 0, 0),
                                             child: Column(
                                               children: [
-                                                SizedBox(height: 5),
+                                              
                                                 SingleChildScrollView(
                                                     child: Card(
                                                   elevation: 5,
@@ -881,51 +858,5 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
     }).catchError((err) {
       print(err);
     });
-  }
-}
-
-class FancyCard extends StatefulWidget {
-  final Widget child;
-  final EdgeInsets margin;
-  final EdgeInsets padding;
-  final double borderRadius;
-  final Color backgroundColor;
-  final Gradient gradient;
-  final BoxShadow boxShadow;
-  final double height;
-
-  FancyCard({
-    @required this.child,
-    @required this.padding,
-    @required this.borderRadius,
-    this.boxShadow,
-    this.backgroundColor,
-    this.gradient,
-    this.margin,
-    this.height,
-  });
-
-  @override
-  _FancyCardState createState() => _FancyCardState();
-}
-
-class _FancyCardState extends State<FancyCard> {
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          this.widget.boxShadow,
-        ],
-        borderRadius: BorderRadius.circular(this.widget.borderRadius),
-        gradient: this.widget.gradient,
-        color: this.widget.backgroundColor,
-      ),
-      margin: this.widget.margin,
-      child: Padding(
-        padding: this.widget.padding,
-        child: this.widget.child,
-      ),
-      height: widget.height,
-    );
   }
 }

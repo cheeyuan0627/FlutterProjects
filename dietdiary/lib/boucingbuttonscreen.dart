@@ -69,7 +69,7 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
             children: [
               Positioned(
                 top: 0,
-                height: screenHeight * 0.38,
+                height: screenHeight * 0.33,
                 left: 0,
                 right: 0,
                 child: ClipRRect(
@@ -79,7 +79,7 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
                   child: Container(
                     color: Colors.blueGrey[50],
                     padding: const EdgeInsets.only(
-                        top: 20, left: 20, right: 20, bottom: 0),
+                        top: 0, left: 20, right: 0, bottom: 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -190,88 +190,61 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
               ),
             ],
           )),
-          FancyCard(
-            child: Column(
-              children: <Widget>[
-                Row(
-                  children: [
-                    SizedBox(
-                      width: screenWidth * 0.30,
-                    ),
-                    Text(
-                      'Hi New User',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            borderRadius: 10,
-            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-            margin: EdgeInsets.fromLTRB(10, screenHeight * 0.04, 10, 5),
-            backgroundColor: Colors.blueGrey[50],
-            boxShadow: BoxShadow(
-              color: Colors.grey[400],
-              blurRadius: 3.0,
-              offset: Offset(1, 1),
+          Container(
+            margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
+            child: Card(
+              color: Colors.blueGrey[50],
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    title: Text('Hi User',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center),
+                  ),
+                ],
+              ),
             ),
           ),
-          FancyCard(
-            child: Column(
-              children: <Widget>[
-                Row(
-                  children: [
-                    SizedBox(
-                      width: screenWidth * 0.25,
-                    ),
-                    Text(
-                      'New To Diet Diary?',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            borderRadius: 10,
-            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 5),
-            backgroundColor: Colors.blueGrey[50],
-            boxShadow: BoxShadow(
-              color: Colors.grey[400],
-              blurRadius: 3.0,
-              offset: Offset(1, 1),
+          Container(
+            margin: EdgeInsets.fromLTRB(5, 5, 5, 0),
+            child: Card(
+              color: Colors.blueGrey[50],
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    title: Text('New To Diet Diary?',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center),
+                  ),
+                ],
+              ),
             ),
           ),
-          FancyCard(
-            child: Column(
-              children: <Widget>[
-                Row(
-                  children: [
-                    SizedBox(
-                      width: screenWidth * 0.05,
-                    ),
-                    Text(
-                      'Press the Button Below To Calculate BMI',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      width: screenWidth * 0.02,
-                    ),
-                    Icon(FontAwesomeIcons.handPointDown, color: Colors.black),
-                  ],
-                )
-              ],
-            ),
-            borderRadius: 10,
-            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 15),
-            backgroundColor: Colors.blueGrey[50],
-            boxShadow: BoxShadow(
-              color: Colors.grey[400],
-              blurRadius: 3.0,
-              offset: Offset(1, 1),
+          Container(
+            margin: EdgeInsets.fromLTRB(5, 5, 5, 15),
+            child: Card(
+              color: Colors.blueGrey[50],
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    title: Text('Press Button Below to Get Started',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center),
+                  ),
+                ],
+              ),
             ),
           ),
           Center(
@@ -285,7 +258,7 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
             ),
           ),
           SizedBox(
-            height: 50,
+            height: screenHeight * 0.03,
           )
         ],
       ),
@@ -294,8 +267,8 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
 
   Widget _animatedButton() {
     return Container(
-      height: screenHeight * 0.10,
-      width: screenWidth * 0.50,
+      height: 60,
+      width: 250,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100.0),
           boxShadow: [
@@ -308,10 +281,7 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xff33ccff),
-              Color(0xff33ccff),
-            ],
+            colors: [Colors.blueGrey[50], Colors.grey[50]],
           )),
       child: Center(
         child: Text(
@@ -397,52 +367,6 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
           ],
         );
       },
-    );
-  }
-}
-
-class FancyCard extends StatefulWidget {
-  final Widget child;
-  final EdgeInsets margin;
-  final EdgeInsets padding;
-  final double borderRadius;
-  final Color backgroundColor;
-  final Gradient gradient;
-  final BoxShadow boxShadow;
-  final double height;
-
-  FancyCard({
-    @required this.child,
-    @required this.padding,
-    @required this.borderRadius,
-    this.boxShadow,
-    this.backgroundColor,
-    this.gradient,
-    this.margin,
-    this.height,
-  });
-
-  @override
-  _FancyCardState createState() => _FancyCardState();
-}
-
-class _FancyCardState extends State<FancyCard> {
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          this.widget.boxShadow,
-        ],
-        borderRadius: BorderRadius.circular(this.widget.borderRadius),
-        gradient: this.widget.gradient,
-        color: this.widget.backgroundColor,
-      ),
-      margin: this.widget.margin,
-      child: Padding(
-        padding: this.widget.padding,
-        child: this.widget.child,
-      ),
-      height: widget.height,
     );
   }
 }

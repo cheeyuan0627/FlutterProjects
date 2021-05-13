@@ -58,152 +58,160 @@ class _DietplandetailbreakfastScreenState
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          FancyCard(
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: screenWidth * 0.19,
-                                    ),
-                                    Text(
-                                      'Loading Breakfast Data..',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                            borderRadius: 10,
-                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            backgroundColor: Colors.blueGrey[50],
-                            boxShadow: BoxShadow(
-                              color: Colors.grey[400],
-                              blurRadius: 3.0,
-                              offset: Offset(1, 1),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(5, 5, 5, 10),
+                            child: Card(
+                              color: Colors.blueGrey[50],
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text('Loading Breaskfast Data ...',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          FancyCard(
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: screenWidth * 0.02,
-                                    ),
-                                    Text(
-                                      'Please Make Sure U Add Breakfast To Continue',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                  ],
-                                )
-                              ],
+                          Container(
+                            margin: EdgeInsets.fromLTRB(5, 5, 5, 10),
+                            child: Card(
+                              color: Colors.blueGrey[50],
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text(
+                                        'Please Add Some Breakfast To Continue',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ],
+                              ),
                             ),
-                            borderRadius: 10,
-                            padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            backgroundColor: Colors.blueGrey[50],
-                            boxShadow: BoxShadow(
-                              color: Colors.grey[400],
-                              blurRadius: 3.0,
-                              offset: Offset(1, 1),
-                            ),
-                          )
+                          ),
                         ],
                       ),
                     )
                   : Flexible(
                       child: SingleChildScrollView(
-                          child: Column(
-                              children: List.generate(mealbreakfastlist.length,
-                                  (index) {
-                        return Padding(
-                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                          child: Column(
-                            children: [
-                              SingleChildScrollView(
-                                  child: Card(
-                                child: InkWell(
-                                  onLongPress: () {
-                                    setState(() {
-                                      foodname =
-                                          mealbreakfastlist[index]['name'];
-                                    });
-                                    _deletedialog();
-                                  },
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CachedNetworkImage(
-                                        imageUrl:
-                                            "http://triold.com/dietdiary/images/foodpictures/${mealbreakfastlist[index]['name']}.png",
-                                        width: 150,
-                                        height: 150,
-                                        fit: BoxFit.contain,
-                                        placeholder: (context, url) =>
-                                            new CircularProgressIndicator(),
-                                        errorWidget: (context, url, error) =>
-                                            new Icon(
-                                          Icons.broken_image,
-                                          size: screenWidth / 2,
-                                        ),
-                                      ),
-                                      SizedBox(width: 20),
-                                      Column(
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
+                            child: Card(
+                              color: Colors.white,
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text('Long Press To Delete Food',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SingleChildScrollView(
+                              child: Column(
+                                  children: List.generate(
+                                      mealbreakfastlist.length, (index) {
+                            return Padding(
+                              padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                              child: Column(
+                                children: [
+                                  SingleChildScrollView(
+                                      child: Card(
+                                    child: InkWell(
+                                      onLongPress: () {
+                                        setState(() {
+                                          foodname =
+                                              mealbreakfastlist[index]['name'];
+                                        });
+                                        _deletedialog();
+                                      },
+                                      child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          SizedBox(height: 30),
-                                          Text(
-                                            'Food Name: ' +
-                                                mealbreakfastlist[index]
-                                                    ['name'],
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
+                                          CachedNetworkImage(
+                                            imageUrl:
+                                                "http://triold.com/dietdiary/images/foodpictures/${mealbreakfastlist[index]['name']}.png",
+                                            width: 140,
+                                            height: 150,
+                                            fit: BoxFit.contain,
+                                            placeholder: (context, url) =>
+                                                new CircularProgressIndicator(),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    new Icon(
+                                              Icons.broken_image,
+                                              size: screenWidth / 2,
+                                            ),
                                           ),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            'Calories per: ' +
-                                                mealbreakfastlist[index]
-                                                    ['calorie'] +
-                                                ' Cal',
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            'Quantity: ' +
-                                                mealbreakfastlist[index]
-                                                    ['quantity'],
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
+                                          SizedBox(width: 5),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(height: 30),
+                                              Text(
+                                                'Name: ' +
+                                                    mealbreakfastlist[index]
+                                                        ['name'],
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              SizedBox(height: 10),
+                                              Text(
+                                                'Calories per: ' +
+                                                    mealbreakfastlist[index]
+                                                        ['calorie'] +
+                                                    ' Cal',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              SizedBox(height: 10),
+                                              Text(
+                                                'Quantity: ' +
+                                                    mealbreakfastlist[index]
+                                                        ['quantity'],
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ))
-                            ],
-                          ),
-                        );
-                      }))),
-                    ),
+                                    ),
+                                  )),
+                                ],
+                              ),
+                            );
+                          }))),
+                        ],
+                      ),
+                    )),
             ],
           ),
         ]),
@@ -366,150 +374,160 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          FancyCard(
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: screenWidth * 0.21,
-                                    ),
-                                    Text(
-                                      'Loading Lunch Data..',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                            borderRadius: 10,
-                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            backgroundColor: Colors.blueGrey[50],
-                            boxShadow: BoxShadow(
-                              color: Colors.grey[400],
-                              blurRadius: 3.0,
-                              offset: Offset(1, 1),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(5, 5, 5, 10),
+                            child: Card(
+                              color: Colors.blueGrey[50],
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text('Loading Lunch Data ...',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          FancyCard(
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: screenWidth * 0.03,
-                                    ),
-                                    Text(
-                                      'Please Make Sure U Add Lunch To Continue',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                  ],
-                                )
-                              ],
+                          Container(
+                            margin: EdgeInsets.fromLTRB(5, 5, 5, 10),
+                            child: Card(
+                              color: Colors.blueGrey[50],
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text(
+                                        'Please Add Some Lunch To Continue',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ],
+                              ),
                             ),
-                            borderRadius: 10,
-                            padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            backgroundColor: Colors.blueGrey[50],
-                            boxShadow: BoxShadow(
-                              color: Colors.grey[400],
-                              blurRadius: 3.0,
-                              offset: Offset(1, 1),
-                            ),
-                          )
+                          ),
                         ],
                       ),
                     )
                   : Flexible(
                       child: SingleChildScrollView(
-                          child: Column(
-                              children:
-                                  List.generate(meallunchlist.length, (index) {
-                        return Padding(
-                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                          child: Column(
-                            children: [
-                              SingleChildScrollView(
-                                  child: Card(
-                                child: InkWell(
-                                  onLongPress: () {
-                                    setState(() {
-                                      foodname = meallunchlist[index]['name'];
-                                    });
-                                    _deletedialog();
-                                  },
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CachedNetworkImage(
-                                        imageUrl:
-                                            "http://triold.com/dietdiary/images/foodpictures/${meallunchlist[index]['name']}.png",
-                                        width: 150,
-                                        height: 150,
-                                        fit: BoxFit.cover,
-                                        placeholder: (context, url) =>
-                                            new CircularProgressIndicator(),
-                                        errorWidget: (context, url, error) =>
-                                            new Icon(
-                                          Icons.broken_image,
-                                          size: screenWidth / 2,
-                                        ),
-                                      ),
-                                      SizedBox(width: 20),
-                                      Column(
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
+                            child: Card(
+                              color: Colors.white,
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text('Long Press To Delete Food',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SingleChildScrollView(
+                              child: Column(
+                                  children: List.generate(meallunchlist.length,
+                                      (index) {
+                            return Padding(
+                              padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                              child: Column(
+                                children: [
+                                  SingleChildScrollView(
+                                      child: Card(
+                                    child: InkWell(
+                                      onLongPress: () {
+                                        setState(() {
+                                          foodname =
+                                              meallunchlist[index]['name'];
+                                        });
+                                        _deletedialog();
+                                      },
+                                      child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          SizedBox(height: 30),
-                                          Text(
-                                            'Food Name: ' +
-                                                meallunchlist[index]['name'],
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
+                                          CachedNetworkImage(
+                                            imageUrl:
+                                                "http://triold.com/dietdiary/images/foodpictures/${meallunchlist[index]['name']}.png",
+                                            width: 140,
+                                            height: 150,
+                                            fit: BoxFit.cover,
+                                            placeholder: (context, url) =>
+                                                new CircularProgressIndicator(),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    new Icon(
+                                              Icons.broken_image,
+                                              size: screenWidth / 2,
+                                            ),
                                           ),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            'Calories per: ' +
-                                                meallunchlist[index]
-                                                    ['calorie'] +
-                                                ' Cal',
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            'Quantity: ' +
-                                                meallunchlist[index]
-                                                    ['quantity'],
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
+                                          SizedBox(width: 5),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(height: 30),
+                                              Text(
+                                                'Name: ' +
+                                                    meallunchlist[index]
+                                                        ['name'],
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              SizedBox(height: 10),
+                                              Text(
+                                                'Calories per: ' +
+                                                    meallunchlist[index]
+                                                        ['calorie'] +
+                                                    ' Cal',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              SizedBox(height: 10),
+                                              Text(
+                                                'Quantity: ' +
+                                                    meallunchlist[index]
+                                                        ['quantity'],
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ))
-                            ],
-                          ),
-                        );
-                      }))),
-                    ),
+                                    ),
+                                  ))
+                                ],
+                              ),
+                            );
+                          }))),
+                        ],
+                      ),
+                    )),
             ],
           ),
         ]),
@@ -672,150 +690,160 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          FancyCard(
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: screenWidth * 0.21,
-                                    ),
-                                    Text(
-                                      'Loading Dinner Data..',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                            borderRadius: 10,
-                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            backgroundColor: Colors.blueGrey[50],
-                            boxShadow: BoxShadow(
-                              color: Colors.grey[400],
-                              blurRadius: 3.0,
-                              offset: Offset(1, 1),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(5, 5, 5, 10),
+                            child: Card(
+                              color: Colors.blueGrey[50],
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text('Loading Dinner Data ...',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          FancyCard(
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: screenWidth * 0.03,
-                                    ),
-                                    Text(
-                                      'Please Make Sure U Add Dinner To Continue',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                  ],
-                                )
-                              ],
+                          Container(
+                            margin: EdgeInsets.fromLTRB(5, 5, 5, 10),
+                            child: Card(
+                              color: Colors.blueGrey[50],
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text(
+                                        'Please Add Some Dinner To Continue',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ],
+                              ),
                             ),
-                            borderRadius: 10,
-                            padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            backgroundColor: Colors.blueGrey[50],
-                            boxShadow: BoxShadow(
-                              color: Colors.grey[400],
-                              blurRadius: 3.0,
-                              offset: Offset(1, 1),
-                            ),
-                          )
+                          ),
                         ],
                       ),
                     )
                   : Flexible(
                       child: SingleChildScrollView(
-                          child: Column(
-                              children:
-                                  List.generate(mealdinnerlist.length, (index) {
-                        return Padding(
-                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                          child: Column(
-                            children: [
-                              SingleChildScrollView(
-                                  child: Card(
-                                child: InkWell(
-                                  onLongPress: () {
-                                    setState(() {
-                                      foodname = mealdinnerlist[index]['name'];
-                                    });
-                                    _deletedialog();
-                                  },
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CachedNetworkImage(
-                                        imageUrl:
-                                            "http://triold.com/dietdiary/images/foodpictures/${mealdinnerlist[index]['name']}.png",
-                                        width: 150,
-                                        height: 150,
-                                        fit: BoxFit.cover,
-                                        placeholder: (context, url) =>
-                                            new CircularProgressIndicator(),
-                                        errorWidget: (context, url, error) =>
-                                            new Icon(
-                                          Icons.broken_image,
-                                          size: screenWidth / 2,
-                                        ),
-                                      ),
-                                      SizedBox(width: 20),
-                                      Column(
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
+                            child: Card(
+                              color: Colors.white,
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text('Long Press To Delete Food',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SingleChildScrollView(
+                              child: Column(
+                                  children: List.generate(mealdinnerlist.length,
+                                      (index) {
+                            return Padding(
+                              padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                              child: Column(
+                                children: [
+                                  SingleChildScrollView(
+                                      child: Card(
+                                    child: InkWell(
+                                      onLongPress: () {
+                                        setState(() {
+                                          foodname =
+                                              mealdinnerlist[index]['name'];
+                                        });
+                                        _deletedialog();
+                                      },
+                                      child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          SizedBox(height: 30),
-                                          Text(
-                                            'Food Name: ' +
-                                                mealdinnerlist[index]['name'],
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
+                                          CachedNetworkImage(
+                                            imageUrl:
+                                                "http://triold.com/dietdiary/images/foodpictures/${mealdinnerlist[index]['name']}.png",
+                                            width: 140,
+                                            height: 150,
+                                            fit: BoxFit.cover,
+                                            placeholder: (context, url) =>
+                                                new CircularProgressIndicator(),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    new Icon(
+                                              Icons.broken_image,
+                                              size: screenWidth / 2,
+                                            ),
                                           ),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            'Calories per: ' +
-                                                mealdinnerlist[index]
-                                                    ['calorie'] +
-                                                ' Cal',
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            'Quantity: ' +
-                                                mealdinnerlist[index]
-                                                    ['quantity'],
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
+                                          SizedBox(width: 5),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(height: 30),
+                                              Text(
+                                                'Name: ' +
+                                                    mealdinnerlist[index]
+                                                        ['name'],
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              SizedBox(height: 10),
+                                              Text(
+                                                'Calories per: ' +
+                                                    mealdinnerlist[index]
+                                                        ['calorie'] +
+                                                    ' Cal',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              SizedBox(height: 10),
+                                              Text(
+                                                'Quantity: ' +
+                                                    mealdinnerlist[index]
+                                                        ['quantity'],
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ))
-                            ],
-                          ),
-                        );
-                      }))),
-                    ),
+                                    ),
+                                  ))
+                                ],
+                              ),
+                            );
+                          }))),
+                        ],
+                      ),
+                    )),
             ],
           ),
         ]),
@@ -925,51 +953,5 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
     }).catchError((err) {
       print(err);
     });
-  }
-}
-
-class FancyCard extends StatefulWidget {
-  final Widget child;
-  final EdgeInsets margin;
-  final EdgeInsets padding;
-  final double borderRadius;
-  final Color backgroundColor;
-  final Gradient gradient;
-  final BoxShadow boxShadow;
-  final double height;
-
-  FancyCard({
-    @required this.child,
-    @required this.padding,
-    @required this.borderRadius,
-    this.boxShadow,
-    this.backgroundColor,
-    this.gradient,
-    this.margin,
-    this.height,
-  });
-
-  @override
-  _FancyCardState createState() => _FancyCardState();
-}
-
-class _FancyCardState extends State<FancyCard> {
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          this.widget.boxShadow,
-        ],
-        borderRadius: BorderRadius.circular(this.widget.borderRadius),
-        gradient: this.widget.gradient,
-        color: this.widget.backgroundColor,
-      ),
-      margin: this.widget.margin,
-      child: Padding(
-        padding: this.widget.padding,
-        child: this.widget.child,
-      ),
-      height: widget.height,
-    );
   }
 }

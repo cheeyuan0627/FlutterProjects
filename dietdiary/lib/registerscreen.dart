@@ -205,7 +205,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                     textColor: Colors.white,
                     child: Text("Register"),
                   ),
-                ),
+                ),SizedBox(height: 10,),
                 GestureDetector(
                   onTap: _onLogin,
                   child: Text(
@@ -214,7 +214,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                       fontSize: 15,
                     ),
                   ),
-                ),
+                ),SizedBox(height: 10,)
               ],
             ),
           ),
