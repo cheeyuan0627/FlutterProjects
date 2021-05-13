@@ -5,15 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
 
-
-class ResultScreen extends StatelessWidget {
+class ResultScreen extends StatefulWidget {
   final bmiModel;
   final User user;
 
   const ResultScreen({Key key, this.bmiModel, this.user}) : super(key: key);
 
   @override
+  _ResultScreenState createState() => _ResultScreenState();
+}
+
+class _ResultScreenState extends State<ResultScreen> {
+  double screenWidth;
+  double screenHeight;
+  @override
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         body: Container(
       width: double.infinity,
@@ -26,7 +34,7 @@ class ResultScreen extends StatelessWidget {
           Container(
             height: 200,
             width: 200,
-            child: bmiModel.isNormal
+            child: widget.bmiModel.isNormal
                 ? (Image.asset(
                     "assets/images/strong1.png",
                   ))
@@ -35,26 +43,26 @@ class ResultScreen extends StatelessWidget {
                   )),
           ),
           SizedBox(
-            height: 8,
+            height: screenHeight * 0.02,
           ),
           Text(
-            "Your BMI is ${bmiModel.bmi.round()}",
+            "Your BMI is ${widget.bmiModel.bmi.round()}",
             style: TextStyle(
                 color: Colors.blue[700],
                 fontSize: 34,
                 fontWeight: FontWeight.w700),
           ),
           Text(
-            "${bmiModel.comments}",
+            "${widget.bmiModel.comments}",
             style: TextStyle(
                 color: Colors.grey[700],
                 fontSize: 18,
                 fontWeight: FontWeight.w500),
           ),
           SizedBox(
-            height: 16,
+            height: screenHeight * 0.02,
           ),
-          bmiModel.isNormal
+          widget.bmiModel.isNormal
               ? Text(
                   "Hurray! Your BMI is Normal.",
                   style: TextStyle(
@@ -70,7 +78,7 @@ class ResultScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700),
                 ),
           SizedBox(
-            height: 16,
+            height: screenHeight * 0.02,
           ),
           Container(
             child: FlatButton.icon(
@@ -88,14 +96,14 @@ class ResultScreen extends StatelessWidget {
             width: double.infinity,
             padding: EdgeInsets.only(left: 16, right: 16),
           ),
-             Container(
+          Container(
             child: FlatButton.icon(
               onPressed: () {
-              Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    DietchecklistScreen(user: user)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            DietchecklistScreen(user: widget.user)));
               },
               icon: Icon(
                 Icons.arrow_forward_ios,
@@ -131,6 +139,8 @@ class BMICalculatorScreen extends StatefulWidget {
 }
 
 class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
+  double screenWidth;
+  double screenHeight;
   double _heightOfUser = 120.0;
   double _weightOfUser = 48.0;
   double _bmi = 0;
@@ -139,9 +149,14 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Please Calculate Your BMI ",),backgroundColor: Colors.black87,
+        title: Text(
+          "Please Calculate Your BMI ",
+        ),
+        backgroundColor: Colors.black87,
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.home),
@@ -149,7 +164,9 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => ProfileScreen(user: widget.user,)));
+                    builder: (BuildContext context) => ProfileScreen(
+                          user: widget.user,
+                        )));
           },
         ),
       ),
@@ -169,7 +186,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                 ),
               ),
               SizedBox(
-                height: 8,
+                height: screenHeight * 0.01,
               ),
               Text(
                 "BMI Calculator",
@@ -186,7 +203,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                     fontWeight: FontWeight.w400),
               ),
               SizedBox(
-                height: 32,
+                height: screenHeight * 0.05,
               ),
               Text(
                 "Height (cm)",
@@ -219,7 +236,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                     fontWeight: FontWeight.w900),
               ),
               SizedBox(
-                height: 24,
+                height: screenHeight * 0.04,
               ),
               Text(
                 "Weight (kg)",
@@ -252,7 +269,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                     fontWeight: FontWeight.w900),
               ),
               SizedBox(
-                height: 16,
+                height: screenHeight * 0.03,
               ),
               Container(
                 child: FlatButton.icon(
@@ -276,13 +293,12 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                             bmi: _bmi,
                             isNormal: false,
                             comments: "You are Overweighted");
-                      } else if(_bmi > 30 && _bmi <= 40) {
+                      } else if (_bmi > 30 && _bmi <= 40) {
                         _bmiModel = BMIModel(
                             bmi: _bmi,
                             isNormal: false,
                             comments: "You are Obesed");
-                      }
-                      else {
+                      } else {
                         _bmiModel = BMIModel(
                             bmi: _bmi,
                             isNormal: false,
@@ -321,13 +337,13 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
       "weight": _weightOfUser.toString(),
       "height": _heightOfUser.toString(),
       "bmi": _bmi.toString(),
-      "type" : _bmiModel.comments,
+      "type": _bmiModel.comments,
       "email": widget.user.email,
     }).then((res) {
-       if (res.body == "success") {
+      if (res.body == "success") {
         Toast.show("BMI INFO SAVED/ UPDATED", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
-      }else {
+      } else {
         Toast.show("FAILED TO SAVE BMI INFO", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
       }

@@ -31,6 +31,8 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
 
   @override
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -61,7 +63,7 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                 Row(
                                   children: [
                                     SizedBox(
-                                      width: 100,
+                                      width: screenWidth * 0.23,
                                     ),
                                     Text(
                                       'Loading Food Data..',
@@ -70,7 +72,7 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                           fontSize: 15),
                                     ),
                                     SizedBox(
-                                      width: 10,
+                                      width: screenWidth * 0.02,
                                     ),
                                   ],
                                 )
@@ -92,7 +94,7 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                 Row(
                                   children: [
                                     SizedBox(
-                                      width: 0,
+                                      width: screenWidth * 0.02,
                                     ),
                                     Text(
                                       'Please Make Sure U Calculate BMI To Continue',
@@ -101,14 +103,14 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                           fontSize: 15),
                                     ),
                                     SizedBox(
-                                      width: 10,
+                                      width: screenWidth * 0.01,
                                     ),
                                   ],
                                 )
                               ],
                             ),
                             borderRadius: 10,
-                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                            padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
                             margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
                             backgroundColor: Colors.blueGrey[50],
                             boxShadow: BoxShadow(
@@ -182,7 +184,7 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                 ],
                               ),
                               SizedBox(
-                                height: 5,
+                                height: 10,
                               ),
                               breakfastlist == null
                                   ? Flexible(
@@ -746,8 +748,9 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            DietplandetailScreen(user: widget.user,)));
+                        builder: (BuildContext context) => DietplandetailScreen(
+                              user: widget.user,
+                            )));
               },
             ),
             new FlatButton(

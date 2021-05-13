@@ -41,6 +41,8 @@ class _MonitorScreenState extends State<MonitorScreen> {
     "6",
     "7",
     "8",
+    "9",
+    "10",
   ];
 
   String selectedquantity = "1";
@@ -53,8 +55,12 @@ class _MonitorScreenState extends State<MonitorScreen> {
   int j = 0;
   int k = 0;
   int i = 0;
+  double screenWidth;
+  double screenHeight;
 
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -104,6 +110,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
                   ],
                 ),
               ),
+              SizedBox(width: screenWidth * 0.05),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -116,7 +123,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
                       ),
                     ),
                     Text(
-                      "          User's cal ",
+                      " User's cal ",
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -124,7 +131,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
                   ],
                 ),
               ),
-              SizedBox(width: 30),
+              SizedBox(width: screenWidth * 0.10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -207,7 +214,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
                 Row(
                   children: [
                     SizedBox(
-                      width: 145,
+                      width: screenWidth * 0.30,
                     ),
                     Text(
                       'Press Here To Clear All Data',
@@ -216,8 +223,15 @@ class _MonitorScreenState extends State<MonitorScreen> {
                         fontSize: 14,
                       ),
                     ),
+                    SizedBox(
+                      width: screenWidth * 0.02,
+                    ),
                     IconButton(
-                      icon: Icon(FontAwesomeIcons.trash, color: Colors.black,size: 18,),
+                      icon: Icon(
+                        FontAwesomeIcons.trash,
+                        color: Colors.black,
+                        size: 17,
+                      ),
                       alignment: Alignment.center,
                       onPressed: () {
                         _deletedialog();
@@ -249,7 +263,11 @@ class _MonitorScreenState extends State<MonitorScreen> {
               children: <Widget>[
                 Row(
                   children: [
-                    Icon(Icons.food_bank),SizedBox(width: 10,), Text(
+                    Icon(Icons.food_bank),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
                       'Food',
                       style: TextStyle(
                         color: Colors.black,
@@ -260,7 +278,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
                       width: 30,
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(10, 10, 20, 0),
+                      padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
                       alignment: Alignment.centerLeft,
                       height: 40,
                       child: DropdownButton(
@@ -280,12 +298,15 @@ class _MonitorScreenState extends State<MonitorScreen> {
                         }).toList(),
                       ),
                     ),
-                   
                   ],
                 ),
                 Row(
                   children: [
-                    Icon(Icons.format_list_numbered_rtl),SizedBox(width: 10,), Text(
+                    Icon(Icons.format_list_numbered_rtl),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
                       'Quantity',
                       style: TextStyle(
                         color: Colors.black,
@@ -319,7 +340,6 @@ class _MonitorScreenState extends State<MonitorScreen> {
                     SizedBox(
                       width: 62,
                     ),
-                  
                   ],
                 ),
                 SizedBox(
@@ -352,12 +372,15 @@ class _MonitorScreenState extends State<MonitorScreen> {
               children: <Widget>[
                 Row(
                   children: [
+                    SizedBox(
+                      width: screenWidth * 0.05,
+                    ),
                     Text(
                       'Estimated Calories Based On Food Type Only!',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
-                      width: 10,
+                      width: 5,
                     ),
                     Icon(FontAwesomeIcons.child, color: Colors.grey),
                   ],
@@ -365,7 +388,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
               ],
             ),
             borderRadius: 10,
-            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
             margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
             backgroundColor: Colors.white,
             boxShadow: BoxShadow(

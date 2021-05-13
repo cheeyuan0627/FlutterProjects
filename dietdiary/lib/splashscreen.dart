@@ -19,9 +19,9 @@ class SplashScreen extends StatelessWidget {
                   width: 200,
                   height: 200,
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 25),
                 ProcessIndicator(),
-                SizedBox(height: 10),
+                SizedBox(height: 25),
                 Text(
                   'Design For Children',
                   style: TextStyle(

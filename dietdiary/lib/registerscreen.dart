@@ -18,6 +18,8 @@ class _RegisterscreenState extends State<Registerscreen> {
 
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
+  double screenWidth;
+  double screenHeight;
   String _name = "";
   String _email = "";
   String _pass = "";
@@ -28,6 +30,8 @@ class _RegisterscreenState extends State<Registerscreen> {
 
   @override
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black87,

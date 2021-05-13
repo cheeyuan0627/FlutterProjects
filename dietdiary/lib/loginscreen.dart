@@ -190,8 +190,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onForgot() {
-   Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (BuildContext context) => ForgorpassScreen()));
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => ForgorpassScreen()));
   }
 
   void loadpref() async {

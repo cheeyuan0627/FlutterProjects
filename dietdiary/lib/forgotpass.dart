@@ -14,9 +14,13 @@ class _ForgorpassState extends State<ForgorpassScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   String _email = "";
+  double screenWidth;
+  double screenHeight;
 
   @override
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
@@ -57,7 +61,7 @@ class _ForgorpassState extends State<ForgorpassScreen> {
                           Row(
                             children: [
                               SizedBox(
-                                width: 40,
+                                width: screenWidth * 0.09,
                               ),
                               Text(
                                 'Please Enter U Email To Reset Password',

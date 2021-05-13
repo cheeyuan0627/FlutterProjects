@@ -28,6 +28,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int i;
   int j;
   int k;
+  double screenWidth;
+  double screenHeight;
 
   @override
   void initState() {
@@ -40,10 +42,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
     final now = new DateTime.now();
     String formatter = DateFormat('yMEd').format(now);
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     return Scaffold(
         bottomNavigationBar: Container(
             decoration: BoxDecoration(
@@ -160,8 +162,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ]))),
         body: Column(children: [
           bmiinfolist == null
-              ? Flexible(
-                  child: BouncingButtonScreen(user: widget.user))
+              ? Flexible(child: BouncingButtonScreen(user: widget.user))
               : Flexible(
                   child: Stack(
                   children: List.generate(bmiinfolist.length, (index) {
@@ -171,7 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           Positioned(
                             top: 0,
-                            height: height * 0.38,
+                            height: screenHeight * 0.35,
                             left: 0,
                             right: 0,
                             child: ClipRRect(
@@ -198,8 +199,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     Row(
                                       children: <Widget>[
                                         Container(
-                                          height: width * 0.35,
-                                          width: width * 0.35,
+                                          height: screenWidth * 0.35,
+                                          width: screenWidth * 0.30,
                                           child: Center(
                                             child: RichText(
                                               textAlign: TextAlign.center,
@@ -263,7 +264,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       .toStringAsFixed(0),
                                               progress: 0.5,
                                               progressColor: Colors.green,
-                                              width: width * 0.35,
+                                              width: screenWidth * 0.35,
                                             ),
                                             SizedBox(
                                               height: 10,
@@ -276,7 +277,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       .toStringAsFixed(0),
                                               progress: 0.5,
                                               progressColor: Colors.red,
-                                              width: width * 0.35,
+                                              width: screenWidth * 0.35,
                                             ),
                                             SizedBox(
                                               height: 10,
@@ -312,11 +313,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           Positioned(
-                            top: height * 0.38,
+                            top: screenHeight * 0.36,
                             left: 0,
                             right: 0,
                             child: Container(
-                              height: height * 0.50,
+                              height: screenHeight * 0.50,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
@@ -749,7 +750,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  void _loadbmi() async{
+  void _loadbmi() async {
     http.post("http://triold.com/dietdiary/php/load_bmi_info.php", body: {
       "email": widget.user.email,
     }).then((res) {
@@ -770,7 +771,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  void _loadmealbreakfast() async{
+  void _loadmealbreakfast() async {
     http.post("http://triold.com/dietdiary/php/load_mealsplanbreakfast.php",
         body: {"email": widget.user.email, "cycle": "Breakfast"}).then((res) {
       print(res.body);
@@ -790,7 +791,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  void _loadmeallunch() async{
+  void _loadmeallunch() async {
     http.post("http://triold.com/dietdiary/php/load_mealsplanlunch.php",
         body: {"email": widget.user.email, "cycle": "Lunch"}).then((res) {
       print(res.body);
@@ -810,7 +811,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  void _loadmealdinner() async{
+  void _loadmealdinner() async {
     http.post("http://triold.com/dietdiary/php/load_mealsplandinner.php",
         body: {"email": widget.user.email, "cycle": "Dinner"}).then((res) {
       print(res.body);

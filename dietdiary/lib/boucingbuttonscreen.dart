@@ -18,6 +18,9 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
     with SingleTickerProviderStateMixin {
   double _scale;
   AnimationController _controller;
+  double screenWidth;
+  double screenHeight;
+
   @override
   void initState() {
     _controller = AnimationController(
@@ -41,10 +44,10 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
 
   @override
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
     final now = new DateTime.now();
     String formatter = DateFormat('yMEd').format(now);
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     _scale = 1 - _controller.value;
     return Scaffold(
       appBar: AppBar(
@@ -66,7 +69,7 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
             children: [
               Positioned(
                 top: 0,
-                height: height * 0.38,
+                height: screenHeight * 0.38,
                 left: 0,
                 right: 0,
                 child: ClipRRect(
@@ -93,8 +96,8 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
                         Row(
                           children: <Widget>[
                             Container(
-                              height: width * 0.35,
-                              width: width * 0.35,
+                              height: screenWidth * 0.35,
+                              width: screenWidth * 0.35,
                               child: Center(
                                 child: RichText(
                                   textAlign: TextAlign.center,
@@ -143,7 +146,7 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
                                   ingredient: "Height (cm) " + '0',
                                   progress: 0.5,
                                   progressColor: Colors.green,
-                                  width: width * 0.35,
+                                  width: screenWidth * 0.35,
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -152,7 +155,7 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
                                   ingredient: "Weight (kg) " + '0',
                                   progress: 0.5,
                                   progressColor: Colors.red,
-                                  width: width * 0.35,
+                                  width: screenWidth * 0.35,
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -193,23 +196,20 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
                 Row(
                   children: [
                     SizedBox(
-                      width: 120,
+                      width: screenWidth * 0.30,
                     ),
                     Text(
                       'Hi New User',
                       textAlign: TextAlign.right,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
                   ],
                 )
               ],
             ),
             borderRadius: 10,
             padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            margin: EdgeInsets.fromLTRB(10, screenHeight * 0.04, 10, 5),
             backgroundColor: Colors.blueGrey[50],
             boxShadow: BoxShadow(
               color: Colors.grey[400],
@@ -223,23 +223,20 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
                 Row(
                   children: [
                     SizedBox(
-                      width: 100,
+                      width: screenWidth * 0.25,
                     ),
                     Text(
                       'New To Diet Diary?',
                       textAlign: TextAlign.right,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
                   ],
                 )
               ],
             ),
             borderRadius: 10,
             padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            margin: EdgeInsets.fromLTRB(10, 10, 10, 5),
             backgroundColor: Colors.blueGrey[50],
             boxShadow: BoxShadow(
               color: Colors.grey[400],
@@ -253,14 +250,14 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
                 Row(
                   children: [
                     SizedBox(
-                      width: 20,
+                      width: screenWidth * 0.05,
                     ),
                     Text(
                       'Press the Button Below To Calculate BMI',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
-                      width: 10,
+                      width: screenWidth * 0.02,
                     ),
                     Icon(FontAwesomeIcons.handPointDown, color: Colors.black),
                   ],
@@ -269,7 +266,7 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
             ),
             borderRadius: 10,
             padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+            margin: EdgeInsets.fromLTRB(10, 10, 10, 15),
             backgroundColor: Colors.blueGrey[50],
             boxShadow: BoxShadow(
               color: Colors.grey[400],
@@ -297,8 +294,8 @@ class _BouncingButtonState extends State<BouncingButtonScreen>
 
   Widget _animatedButton() {
     return Container(
-      height: 60,
-      width: 200,
+      height: screenHeight * 0.10,
+      width: screenWidth * 0.50,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100.0),
           boxShadow: [

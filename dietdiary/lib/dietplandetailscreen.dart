@@ -85,7 +85,9 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(width: 20),
+                            SizedBox(
+                              width: screenWidth * 0.02,
+                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -154,7 +156,7 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 50,
+                                  height: 65,
                                 ),
                                 SizedBox(height: 10),
                                 Text(
@@ -210,7 +212,7 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 50,
+                                  height: 65,
                                 ),
                                 SizedBox(height: 10),
                                 Text(
@@ -266,7 +268,7 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 50,
+                                  height: 65,
                                 ),
                                 SizedBox(height: 10),
                                 Text(
@@ -402,4 +404,3 @@ class _DietplandetailScreenState extends State<DietplandetailScreen> {
     });
   }
 }
-

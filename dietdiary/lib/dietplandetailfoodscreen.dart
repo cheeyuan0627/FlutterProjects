@@ -30,6 +30,8 @@ class _DietplandetailbreakfastScreenState
 
   @override
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -62,7 +64,7 @@ class _DietplandetailbreakfastScreenState
                                 Row(
                                   children: [
                                     SizedBox(
-                                      width: 90,
+                                      width: screenWidth * 0.19,
                                     ),
                                     Text(
                                       'Loading Breakfast Data..',
@@ -93,7 +95,7 @@ class _DietplandetailbreakfastScreenState
                                 Row(
                                   children: [
                                     SizedBox(
-                                      width: 0,
+                                      width: screenWidth * 0.02,
                                     ),
                                     Text(
                                       'Please Make Sure U Add Breakfast To Continue',
@@ -109,7 +111,7 @@ class _DietplandetailbreakfastScreenState
                               ],
                             ),
                             borderRadius: 10,
-                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                            padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
                             margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
                             backgroundColor: Colors.blueGrey[50],
                             boxShadow: BoxShadow(
@@ -119,7 +121,8 @@ class _DietplandetailbreakfastScreenState
                             ),
                           )
                         ],
-                      ),)
+                      ),
+                    )
                   : Flexible(
                       child: SingleChildScrollView(
                           child: Column(
@@ -162,7 +165,6 @@ class _DietplandetailbreakfastScreenState
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                       
                                           SizedBox(height: 30),
                                           Text(
                                             'Food Name: ' +
@@ -315,18 +317,17 @@ class _DietplandetailbreakfastScreenState
 }
 
 class DietplanlunchScreen extends StatefulWidget {
-   final User user;
+  final User user;
 
   const DietplanlunchScreen({Key key, this.user}) : super(key: key);
 
-  
   @override
   _DietplandetaillunchScreenState createState() =>
       _DietplandetaillunchScreenState();
 }
 
 class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
-   double screenHeight, screenWidth;
+  double screenHeight, screenWidth;
   List meallunchlist;
   String foodname;
 
@@ -335,7 +336,10 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
     super.initState();
     _loadmeallunch();
   }
- Widget build(BuildContext context) {
+
+  Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -368,7 +372,7 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
                                 Row(
                                   children: [
                                     SizedBox(
-                                      width: 100,
+                                      width: screenWidth * 0.21,
                                     ),
                                     Text(
                                       'Loading Lunch Data..',
@@ -399,7 +403,7 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
                                 Row(
                                   children: [
                                     SizedBox(
-                                      width: 0,
+                                      width: screenWidth * 0.03,
                                     ),
                                     Text(
                                       'Please Make Sure U Add Lunch To Continue',
@@ -415,7 +419,7 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
                               ],
                             ),
                             borderRadius: 10,
-                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                            padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
                             margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
                             backgroundColor: Colors.blueGrey[50],
                             boxShadow: BoxShadow(
@@ -425,12 +429,13 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
                             ),
                           )
                         ],
-                      ),)
+                      ),
+                    )
                   : Flexible(
                       child: SingleChildScrollView(
                           child: Column(
-                              children: List.generate(meallunchlist.length,
-                                  (index) {
+                              children:
+                                  List.generate(meallunchlist.length, (index) {
                         return Padding(
                           padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                           child: Column(
@@ -440,8 +445,7 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
                                 child: InkWell(
                                   onLongPress: () {
                                     setState(() {
-                                      foodname =
-                                          meallunchlist[index]['name'];
+                                      foodname = meallunchlist[index]['name'];
                                     });
                                     _deletedialog();
                                   },
@@ -468,11 +472,10 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                             SizedBox(height: 30),
+                                          SizedBox(height: 30),
                                           Text(
                                             'Food Name: ' +
-                                                meallunchlist[index]
-                                                    ['name'],
+                                                meallunchlist[index]['name'],
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold),
@@ -513,7 +516,6 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
       ),
     );
   }
-
 
   _deletedialog() {
     showDialog(
@@ -621,7 +623,7 @@ class _DietplandetaillunchScreenState extends State<DietplanlunchScreen> {
 }
 
 class DietplandinnerScreen extends StatefulWidget {
-     final User user;
+  final User user;
 
   const DietplandinnerScreen({Key key, this.user}) : super(key: key);
 
@@ -631,7 +633,7 @@ class DietplandinnerScreen extends StatefulWidget {
 }
 
 class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
-   double screenHeight, screenWidth;
+  double screenHeight, screenWidth;
   List mealdinnerlist;
   String foodname;
 
@@ -640,8 +642,10 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
     super.initState();
     _loadmealdinner();
   }
-  
- Widget build(BuildContext context) {
+
+  Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -674,7 +678,7 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
                                 Row(
                                   children: [
                                     SizedBox(
-                                      width: 100,
+                                      width: screenWidth * 0.21,
                                     ),
                                     Text(
                                       'Loading Dinner Data..',
@@ -705,7 +709,7 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
                                 Row(
                                   children: [
                                     SizedBox(
-                                      width: 0,
+                                      width: screenWidth * 0.03,
                                     ),
                                     Text(
                                       'Please Make Sure U Add Dinner To Continue',
@@ -721,7 +725,7 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
                               ],
                             ),
                             borderRadius: 10,
-                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                            padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
                             margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
                             backgroundColor: Colors.blueGrey[50],
                             boxShadow: BoxShadow(
@@ -731,12 +735,13 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
                             ),
                           )
                         ],
-                      ),)
+                      ),
+                    )
                   : Flexible(
                       child: SingleChildScrollView(
                           child: Column(
-                              children: List.generate(mealdinnerlist.length,
-                                  (index) {
+                              children:
+                                  List.generate(mealdinnerlist.length, (index) {
                         return Padding(
                           padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                           child: Column(
@@ -746,8 +751,7 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
                                 child: InkWell(
                                   onLongPress: () {
                                     setState(() {
-                                      foodname =
-                                          mealdinnerlist[index]['name'];
+                                      foodname = mealdinnerlist[index]['name'];
                                     });
                                     _deletedialog();
                                   },
@@ -774,11 +778,10 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                            SizedBox(height: 30),
+                                          SizedBox(height: 30),
                                           Text(
                                             'Food Name: ' +
-                                                mealdinnerlist[index]
-                                                    ['name'],
+                                                mealdinnerlist[index]['name'],
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold),
@@ -819,7 +822,6 @@ class _DietplandetaildinnerScreenState extends State<DietplandinnerScreen> {
       ),
     );
   }
-
 
   _deletedialog() {
     showDialog(
@@ -971,4 +973,3 @@ class _FancyCardState extends State<FancyCard> {
     );
   }
 }
-
