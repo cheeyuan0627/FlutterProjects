@@ -91,7 +91,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 )
               : Text(
                   "${widget.bmiModel.comments2}" +
-                      "${widget.bmiModel.kgdrop}" +
+                      "${widget.bmiModel.kgdrop.toStringAsFixed(0)}" +
                       "${widget.bmiModel.comments3}",
                   style: TextStyle(
                       color: Colors.blue[700],
@@ -330,7 +330,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                           comments: "You are Underweighted",
                           kgdrop: _possiblekg - _weightOfUser,
                           comments2: "Increase ",
-                          comments3: "Kg to Normal (25 BMI)",
+                          comments3: " Kg to Normal (25 BMI)",
                         );
                       } else if (_bmi > 25 && _bmi <= 30) {
                         _possiblekg =
