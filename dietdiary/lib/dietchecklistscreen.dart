@@ -115,24 +115,29 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                     Icons.update,
                                     size: 18,
                                   ),
-                                  SizedBox(width: 5),Expanded(child: Text(
-                                    'BMI: ' +
-                                        double.parse(bmiinfolist[index]['bmi'])
-                                            .toStringAsFixed(0),
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.black,
+                                  SizedBox(width: 5),
+                                  Expanded(
+                                    child: Text(
+                                      'BMI: ' +
+                                          double.parse(
+                                                  bmiinfolist[index]['bmi'])
+                                              .toStringAsFixed(0),
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.black,
+                                      ),
                                     ),
-                                  ),),
-                                  
-                                 Expanded(child: Text(
-                                    "Long Press To Add Food",
-                                    style: TextStyle(
-                                      fontSize: 14,fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      "Long Press To Add Food",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
                                     ),
-                                  ),),
-                             
+                                  ),
                                 ],
                               ),
                               Container(
@@ -140,7 +145,8 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                 height: 10,
                               ),
                               Row(
-                                children: <Widget>[SizedBox(width: 5),
+                                children: <Widget>[
+                                  SizedBox(width: 5),
                                   Text(
                                     "BREASKFAST",
                                     style: TextStyle(
@@ -154,8 +160,7 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                   Icon(
                                     Icons.breakfast_dining,
                                     size: 18,
-                                  ),  
-                                 
+                                  ),
                                 ],
                               ),
                               SizedBox(
@@ -179,8 +184,8 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                         children: List.generate(
                                             breakfastlist.length, (index) {
                                           return Padding(
-                                            padding: EdgeInsets.fromLTRB(
-                                                0, 0, 0, 0),
+                                            padding:
+                                                EdgeInsets.fromLTRB(0, 0, 0, 0),
                                             child: Column(
                                               children: [
                                                 SingleChildScrollView(
@@ -344,11 +349,10 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                         children: List.generate(
                                             lunchlist.length, (index) {
                                           return Padding(
-                                            padding: EdgeInsets.fromLTRB(
-                                                0, 0, 0, 0),
+                                            padding:
+                                                EdgeInsets.fromLTRB(0, 0, 0, 0),
                                             child: Column(
                                               children: [
-                                              
                                                 SingleChildScrollView(
                                                     child: Card(
                                                   elevation: 5,
@@ -509,11 +513,10 @@ class _DietchecklistScreenState extends State<DietchecklistScreen> {
                                         children: List.generate(
                                             dinnerlist.length, (index) {
                                           return Padding(
-                                            padding: EdgeInsets.fromLTRB(
-                                                0, 0, 0, 0),
+                                            padding:
+                                                EdgeInsets.fromLTRB(0, 0, 0, 0),
                                             child: Column(
                                               children: [
-                                              
                                                 SingleChildScrollView(
                                                     child: Card(
                                                   elevation: 5,
