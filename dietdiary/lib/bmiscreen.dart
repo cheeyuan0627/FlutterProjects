@@ -80,6 +80,27 @@ class _ResultScreenState extends State<ResultScreen> {
           SizedBox(
             height: screenHeight * 0.02,
           ),
+          widget.bmiModel.isNormal
+              ? Text(
+                  "${widget.bmiModel.comments2}" +
+                      "${widget.bmiModel.comments3}",
+                  style: TextStyle(
+                      color: Colors.blue[700],
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700),
+                )
+              : Text(
+                  "${widget.bmiModel.comments2}" +
+                      "${widget.bmiModel.kgdrop}" +
+                      "${widget.bmiModel.comments3}",
+                  style: TextStyle(
+                      color: Colors.blue[700],
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700),
+                ),
+          SizedBox(
+            height: screenHeight * 0.02,
+          ),
           Container(
             child: FlatButton.icon(
               onPressed: () {
@@ -126,8 +147,18 @@ class BMIModel {
   double bmi;
   bool isNormal;
   String comments;
+  double kgdrop;
+  String comments2;
+  String comments3;
 
-  BMIModel({this.bmi, this.isNormal, this.comments});
+  BMIModel({
+    this.bmi,
+    this.isNormal,
+    this.comments,
+    this.kgdrop,
+    this.comments2,
+    this.comments3,
+  });
 }
 
 class BMICalculatorScreen extends StatefulWidget {
@@ -144,6 +175,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
   double _heightOfUser = 120.0;
   double _weightOfUser = 48.0;
   double _bmi = 0;
+  double _possiblekg = 0;
 
   BMIModel _bmiModel;
 
@@ -215,16 +247,17 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
               Container(
                 padding: EdgeInsets.only(left: 16, right: 16),
                 child: Slider(
-                  min: 0.0,
-                  max: 200.0,
+                  min: 50,
+                  max: 200,
                   onChanged: (height) {
                     setState(() {
                       _heightOfUser = height;
                     });
                   },
                   value: _heightOfUser,
-                  divisions: 100,
+                  divisions: 150,
                   activeColor: Colors.blue,
+                  inactiveColor: Colors.grey,
                   label: "$_heightOfUser",
                 ),
               ),
@@ -248,16 +281,17 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
               Container(
                 padding: EdgeInsets.only(left: 16, right: 16),
                 child: Slider(
-                  min: 0.0,
-                  max: 150.0,
+                  min: 10,
+                  max: 100,
                   onChanged: (height) {
                     setState(() {
                       _weightOfUser = height;
                     });
                   },
                   value: _weightOfUser,
-                  divisions: 100,
+                  divisions: 90,
                   activeColor: Colors.blue,
+                  inactiveColor: Colors.grey,
                   label: "$_weightOfUser",
                 ),
               ),
@@ -280,29 +314,58 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
 
                       if (_bmi >= 18.5 && _bmi <= 25) {
                         _bmiModel = BMIModel(
-                            bmi: _bmi,
-                            isNormal: true,
-                            comments: "You are Totaly Fit");
+                          bmi: _bmi,
+                          isNormal: true,
+                          comments: "You are Totaly Fit",
+                          comments2: "Please keep ",
+                          comments3: "it up!",
+                        );
                       } else if (_bmi < 18.5) {
+                        _possiblekg =
+                            ((_heightOfUser / 100) * (_heightOfUser / 100)) *
+                                18.5;
                         _bmiModel = BMIModel(
-                            bmi: _bmi,
-                            isNormal: false,
-                            comments: "You are Underweighted");
+                          bmi: _bmi,
+                          isNormal: false,
+                          comments: "You are Underweighted",
+                          kgdrop: _possiblekg - _weightOfUser,
+                          comments2: "Increase ",
+                          comments3: "Kg to Normal (25 BMI)",
+                        );
                       } else if (_bmi > 25 && _bmi <= 30) {
+                        _possiblekg =
+                            ((_heightOfUser / 100) * (_heightOfUser / 100)) *
+                                25;
                         _bmiModel = BMIModel(
-                            bmi: _bmi,
-                            isNormal: false,
-                            comments: "You are Overweighted");
+                          bmi: _bmi,
+                          isNormal: false,
+                          comments: "You are Overweighted",
+                          kgdrop: _weightOfUser - _possiblekg,
+                          comments2: "Decrease ",
+                          comments3: " Kg to Normal (25 BMI)",
+                        );
                       } else if (_bmi > 30 && _bmi <= 40) {
+                        _possiblekg =
+                            ((_heightOfUser / 100) * (_heightOfUser / 100)) *
+                                25;
                         _bmiModel = BMIModel(
                             bmi: _bmi,
                             isNormal: false,
-                            comments: "You are Obesed");
+                            comments: "You are Obesed",
+                            kgdrop: _weightOfUser - _possiblekg,
+                            comments2: "Decrease ",
+                            comments3: " kg to Normal (25 BMI)");
                       } else {
+                        _possiblekg =
+                            ((_heightOfUser / 100) * (_heightOfUser / 100)) *
+                                25;
                         _bmiModel = BMIModel(
                             bmi: _bmi,
                             isNormal: false,
-                            comments: "You are Class 3 Obese");
+                            comments: "You are Class 3 Obese",
+                            kgdrop: _weightOfUser - _possiblekg,
+                            comments2: "Decrease ",
+                            comments3: " kg to Normal (25 BMI)");
                       }
                     });
                     Navigator.push(
